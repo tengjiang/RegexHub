@@ -1,0 +1,2 @@
+class RegexesController < ApplicationController
+end
