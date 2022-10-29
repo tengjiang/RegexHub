@@ -1,0 +1,15 @@
+<h2>Create New regex</h2>
+
+<%= form_tag regexes_path, :class => 'form' do %>
+  <%= label :regex, :title, 'Name', :class => 'col-form-label' %>
+  <%= text_field :regex, :title, :class => 'form-control' %>
+  <%= label :regex, :expression, 'Expression', :class => 'col-form-label' %>
+  <%= text_field :regex, :expression, :class => 'form-control' %>
+  <%= label :regex, :description, 'Description', :class => 'col-form-label' %>
+  <%= text_field :regex, :description, :class => 'form-control' %>
+  <%= label :regex, :tag, 'Tag', :class => 'col-form-label' %>
+  <%= text_field :regex, :tag, :class => 'form-control' %>
+  <br/>
+  <%= submit_tag 'Save Changes', :class => 'btn btn-primary' %>
+  <%= link_to 'Cancel', regexes_path, :class => 'btn btn-secondary' %>
+<% end %>
