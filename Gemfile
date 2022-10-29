@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 ruby '2.6.6'
-gem 'rails', '4.2.10'
+gem 'rails', '4.2.11'
 
 # for Heroku deployment 
 group :development, :test do
@@ -21,7 +21,6 @@ group :test do
 end
 group :production do
   gem 'pg', '~> 0.21'
-  gem 'rails_12factor'
 end
 
 # Gems used only for assets and not required
