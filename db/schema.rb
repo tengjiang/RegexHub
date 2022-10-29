@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(version: 20221029192404) do
     t.datetime "updated_at"
     t.string   "director"
   end
-<<<<<<< HEAD
-=======
 
   create_table "regexes", force: :cascade do |t|
     t.string   "title"
@@ -32,6 +30,5 @@ ActiveRecord::Schema.define(version: 20221029192404) do
     t.string   "tag"
     t.datetime "created_at",  null: false
   end
->>>>>>> main
 
 end
