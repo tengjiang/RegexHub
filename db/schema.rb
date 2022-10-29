@@ -22,5 +22,6 @@ ActiveRecord::Schema.define(version: 20221016140253) do
     t.datetime "updated_at"
     t.string   "director"
   end
+  #
 
 end
