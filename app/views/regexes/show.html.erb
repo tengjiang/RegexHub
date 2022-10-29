@@ -1,0 +1,27 @@
+<!--  app/views/regexes/show.html.erb -->
+<h2>Details about <em><%= @regex.title %></em></h2>
+
+<ul id="details">
+  <li>
+    Tag:
+    <%= @regex.tag %>
+  </li>
+  <li>
+    Expression:
+    <%= @regex.expression %>
+  </li>
+  <li>
+    Released on:
+    <%= @regex.created_at.strftime("%B %d, %Y") %>
+  </li>
+</ul>
+
+<h3>Description:</h3>
+<p id="description">
+  <%= @regex.description %>
+</p>
+
+<div class="row">
+  <%= link_to 'Delete', regex_path(@regex), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>
+  <%= link_to 'Back to homepage', regexes_path, :class => 'btn btn-primary col-2' %>
+</div>
