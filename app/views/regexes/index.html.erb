@@ -1,0 +1,35 @@
+<h2>All Regexes</h2>
+
+<table class="table table-striped col-md-12" id="regexes">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Expression</th>
+      <th>Uploaded Time</th>
+      <th>Tag</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @regexes.each do |regex| %>
+      <tr>
+        <td>
+          <%= link_to regex.title, regex_path(regex) %>
+        </td>
+        <td>
+          <%= regex.expression %>
+        </td>
+        <td>
+          <%= regex.created_at %>
+        </td>
+        <td>
+          <%= regex.tag %>
+        </td>
+        <td>
+          <%= regex.description %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Add new regular expression', new_regex_path, :class => 'btn btn-primary' %>
