@@ -1,2 +1,12 @@
 class Regex < ActiveRecord::Base
-end
+
+    def self.parse_tag(tags)
+
+    end
+
+    def self.check_integrity(exp)
+    
+    end
+
+  end
+  

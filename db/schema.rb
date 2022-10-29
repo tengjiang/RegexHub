@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221016140253) do
+ActiveRecord::Schema.define(version: 20221029192404) do
 
   create_table "movies", force: :cascade do |t|
     t.string   "title"
@@ -22,7 +22,14 @@ ActiveRecord::Schema.define(version: 20221016140253) do
     t.datetime "updated_at"
     t.string   "director"
   end
-  #
+
+  create_table "regexes", force: :cascade do |t|
+    t.string   "title"
+    t.string   "expression"
+    t.string   "description"
+    t.string   "tag"
+    t.datetime "created_at",  null: false
+  end
 
 end
 
