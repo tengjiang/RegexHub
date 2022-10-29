@@ -5,8 +5,7 @@ class Regex < ActiveRecord::Base
     end
 
     def self.check_integrity(exp)
-    
+
     end
 
-  end
-  
+end
