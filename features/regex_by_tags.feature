@@ -1,5 +1,6 @@
-Feature: search for regex by name
-    As a user, I want to search a regex by name
+Feature: search for regex by tags
+    As a user, I want to search a regex by tags
+
 Background: regex have been added to database
 
     Given the following regex exist:
@@ -11,6 +12,23 @@ Background: regex have been added to database
     | Integer                   | /^-?\d+$/                             | Integer                   | number    |
 
     And I am on the RegexHub home page
-    Then 5 seed regex should exist
+    Then I should see all the regex
 
-Scenario: 
+Scenario: restrict to regex with "time" or "number" tags
+    When I check the following tags: time, number
+
+    And I uncheck the following tags: username, email
+
+    And I press "Refresh"
+
+    Then I should see the following regex: Time in 24-hour format, Negative Integer, Integer
+
+    And I should not see the following regex: Username, Email
+
+Scenario: all tags selected
+
+    When I check the following tags: time, username, email, number
+    
+    And I press "Refresh"
+
+    Then I should see all the regex
