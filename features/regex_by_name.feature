@@ -13,18 +13,4 @@ Background: regex have been added to database
     And I am on the RegexHub home page
     Then 5 seed regex should exist
 
-
-Scenario: add a title and delete it
-  Given I am on the RegexHub home page
-  And I follow "Add new regex"
-  Then I should be on the new regex page
-  When I fill in "Title" with "Moon Man"
-  And I select "PG" from "Rating"
-  And I press "Save Changes"
-  Then I should be on the regex home page
-  And I should see "Moon Man was successfully created"
-  When I follow "More about Moon Man"
-  Then I should be on the details page for "Moon Man"
-  When I follow "Delete"
-  Then I should be on the RottenPotatoes home page
-  And I should see "Movie 'Moon Man' deleted."
+Scenario: 
