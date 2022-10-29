@@ -24,3 +24,5 @@ ActiveRecord::Schema.define(version: 20221016140253) do
   end
 
 end
+
+# push test
