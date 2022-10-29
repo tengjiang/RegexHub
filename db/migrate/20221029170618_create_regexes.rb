@@ -5,6 +5,7 @@ class CreateRegexes < ActiveRecord::Migration
       t.string :expression
       t.string :description
       t.string :tag
+      t.timestamps :updated_at
     end
   end
 end

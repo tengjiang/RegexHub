@@ -11,7 +11,6 @@ class RegexesController < ApplicationController
     
     def new
         # nothing yet
-        # comment on new
     end
 
     def create
