@@ -8,7 +8,7 @@ Background: I am on the homepage and I can see all regexes
     Then I should see "All Regexes"
 
 
-Scenario: add a new regex
+Scenario: add a new regex and save
     When I go to the Add new regular expression page
 
     And I fill in "Name" with "Positive number"
@@ -24,3 +24,20 @@ Scenario: add a new regex
     Then I am on the homepage
 
     And I should see "Positive number"
+
+Scenario: add a new regex and not save
+    When I go to the Add new regular expression page
+
+    And I fill in "Name" with "Positive number"
+
+    And I fill in "Expression" with "/^\d*\.?\d+$/"
+
+    And I fill in "Description" with "Should match all positive numbers"
+
+    And I fill in "Tag" with "number"
+
+    And I follow "Cancel"
+
+    Then I am on the homepage
+
+    And I should not see "Positive number"
