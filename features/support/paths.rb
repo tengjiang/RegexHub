@@ -13,15 +13,18 @@ module NavigationHelpers
   def path_to(page_name)
     case page_name
 
-    when /^the (RegexHub )?home\s?page$/ then '/movies'
+    when /^the (RegexHub )?home\s?page$/ then '/regexes'
+    
+    when /^the Add new regular expression page$/ then '/regexes/new'
 
     # Add more mappings here.
-    when /^the edit page for "(.*)"$/i 
-      edit_movie_path(Movie.find_by_title($1))
+    # when /^the edit page for "(.*)"$/i 
+    #   edit_movie_path(Regex.find_by_title($1))
     when /^the details page for "(.*)"$/i
-      movie_path(Movie.find_by_title($1))
+
+      regex_path(Regex.find_by_title($1))
     when /^the similar movies page for "(.*)"$/i
-      search_directors_path(Movie.find_by_title($1))
+      search_directors_path(Regex.find_by_title($1))
     # Here is an example that pulls values out of the Regexp:
     #
     #   when /^(.*)'s profile page$/i
