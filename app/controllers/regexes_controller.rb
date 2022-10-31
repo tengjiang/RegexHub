@@ -7,6 +7,8 @@ class RegexesController < ApplicationController
         id = params[:id] # retrieve regex ID from URI route
         @regex = Regex.find(id) # look up regex by unique ID
         # will render app/views/regexs/show.<extension> by default
+        @regex_input = params[:text].nil?? nil: params[:text][:content]
+        @validity = Regex.check_integrity(@regex.expression,@regex_input)
     end
     
     def new
@@ -25,6 +27,18 @@ class RegexesController < ApplicationController
         flash[:notice] = "Regex '#{@regex.title}' deleted."
         redirect_to regexes_path
     end
+
+=begin
+    def check
+        puts "update function!!!! We are at the check function"
+        id = params[:id] # retrieve regex ID from URI route
+        @regex = Regex.find(id) # look up regex by unique ID
+        # will render app/views/regexs/show.<extension> by default
+        # @validity = Regex.check_integrity(@regex.expression, @text)
+        # puts params
+        redirect_to regex_path(@regex,Hash(:content=>params[:text][:content])) # must be passed by hash
+    end
+=end
 
     private
     # Making "internal" methods private is not required, but is a common practice.
