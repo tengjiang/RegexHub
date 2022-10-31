@@ -16,12 +16,22 @@
   </li>
 </ul>
 
-<h3>Description:</h3>
+<h4>Description:</h4>
 <p id="description">
   <%= @regex.description %>
 </p>
 
+<h4>Try it out:</h4>
+
+<%= form_tag regex_path(@regex,@text), :method => :get do %>
+  <%= text_field :text, 'content', :placeholder => 'Type something.',:value => @regex_input,:class => 'form-control',:class =>'col-1', :class => 'overflow'%>
+  <%= @validity %>
+  <%= submit_tag 'Check', :class => 'btn btn-primary' %>
+<% end %>
+
+<br/>
 <div class="row">
   <%= link_to 'Delete', regex_path(@regex), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>
   <%= link_to 'Back to homepage', regexes_path, :class => 'btn btn-primary col-2' %>
 </div>
+
