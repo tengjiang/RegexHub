@@ -1,4 +1,4 @@
-Given /the following regex exist/ do |regex_table|
+Given /the following regexes exist/ do |regex_table|
     regex_table.hashes.each do |regex|
       Regex.create regex
     end
