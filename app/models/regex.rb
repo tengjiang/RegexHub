@@ -1,7 +1,12 @@
 class Regex < ActiveRecord::Base
+    has_many :testcases
+    accepts_nested_attributes_for :testcases
 
     def self.parse_tag(tags)
 
+    end
+
+    def self.all_pass(exp, testcases)
     end
 
     def self.check_integrity(exp, str)
@@ -13,5 +18,4 @@ class Regex < ActiveRecord::Base
             res.nil?? "No match!": "First match at index #{res}."
         end
     end
-
 end

@@ -17,6 +17,12 @@ class RegexesController < ApplicationController
 
     def create
         @regex = Regex.create!(regex_params)
+        @testcase = Testcase.create(regex_id:@regex.id,content:params[:regex][:testcase][:content],match:params[:regex][:testcase][:match])
+        puts @regex.id
+        # Normal mass-assignment
+        puts params
+
+        
         flash[:notice] = "#{@regex.title} was successfully created."
         redirect_to regexes_path
     end
@@ -44,6 +50,7 @@ class RegexesController < ApplicationController
     # Making "internal" methods private is not required, but is a common practice.
     # This helps make clear which methods respond to requests, and which ones do not.
     def regex_params
-        params.require(:regex).permit(:title, :expression, :description, :tag, :created_at)
+        params.require(:regex).permit(:title, :expression, :description, :tag, :testcase, :created_at)
+
     end
 end
