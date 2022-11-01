@@ -14,6 +14,7 @@ class Regex < ActiveRecord::Base
         end
     end
 
+# functions for filter
     def self.tags
       pluck(:tag).uniq
     end
