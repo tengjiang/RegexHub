@@ -1,8 +1,5 @@
 class RegexesController < ApplicationController
-    def index
-        @regexes = Regex.all
-    end
-  
+
     def show
         id = params[:id] # retrieve regex ID from URI route
         @regex = Regex.find(id) # look up regex by unique ID
@@ -10,7 +7,44 @@ class RegexesController < ApplicationController
         @regex_input = params[:text].nil?? nil: params[:text][:content]
         @validity = Regex.check_integrity(@regex.expression,@regex_input)
     end
-    
+
+    def index
+
+        @regexes = Regex.all
+        @all_tags = Regex.all_tags
+
+        if params[:commit] == 'Refresh' and params[:tags].nil?
+          #p "r1"
+          @tags_to_show = @all_tags
+          session[:tags] = @tags_to_show
+        end
+
+        if params[:tags].nil?
+          p "t1"
+          if not session[:tags].nil?
+            p "t2"
+            @tags_to_show = session[:tags]
+          else
+            p "t3"
+            @tags_to_show = @all_tags
+            session[:tags] = @tags_to_show
+          end
+          r = Hash[ *session[:tags].collect { |v| [ v, 1 ] }.flatten ]
+          redirect_to regexes_path(:tags => r)
+        else
+          p "t4"
+          if params[:tags].nil?
+            @tags_to_show = session[:tags]
+          else
+            p params[:tags]
+            @tags_to_show = params[:tags].keys
+          end
+        end
+
+        session[:tags] = @tags_to_show
+        @tags = @tags_to_show
+    end
+
     def new
         # nothing yet
     end
