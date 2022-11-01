@@ -10,39 +10,51 @@ class RegexesController < ApplicationController
 
     def index
 
-        @regexes = Regex.all
-        @all_tags = Regex.all_tags
+      @regexes = Regex.all
+      @all_tags = Regex.all_tags
 
-        if params[:commit] == 'Refresh' and params[:tags].nil?
-          #p "r1"
+      if params[:commit] == 'Refresh' and params[:tags].nil?
+        #p "r1"
+        @tags_to_show = @all_tags
+        session[:tags] = @tags_to_show
+      end
+
+      if params[:tags].nil? and params[:sort].nil?
+        p "t1"
+        if not session[:tags].nil?
+          p "t2"
+          @tags_to_show = session[:tags]
+        else
+          p "t3"
           @tags_to_show = @all_tags
           session[:tags] = @tags_to_show
         end
 
+        r = Hash[ *session[:tags].collect { |v| [ v, 1 ] }.flatten ]
+        redirect_to regexes_path(:sort => session[:sort], :tags => r)
+      else
+        p "t4"
         if params[:tags].nil?
-          p "t1"
-          if not session[:tags].nil?
-            p "t2"
-            @tags_to_show = session[:tags]
-          else
-            p "t3"
-            @tags_to_show = @all_tags
-            session[:tags] = @tags_to_show
-          end
-          r = Hash[ *session[:tags].collect { |v| [ v, 1 ] }.flatten ]
-          redirect_to regexes_path(:tags => r)
+          @tags_to_show = session[:tags]
         else
-          p "t4"
-          if params[:tags].nil?
-            @tags_to_show = session[:tags]
-          else
-            p params[:tags]
-            @tags_to_show = params[:tags].keys
-          end
+          p params[:tags]
+          @tags_to_show = params[:tags].keys
         end
+      end
 
-        session[:tags] = @tags_to_show
-        @tags = @tags_to_show
+      @sort = params[:sort] || session[:sort]
+      case @sort
+      when 'name'
+        ordering = {:name => :asc}
+      when 'uploaded_time'
+        ordering = {:uploaded_time => :asc}
+      end
+
+      @regexes = Regex.with_tags(@tags_to_show).order(ordering)
+
+      session[:sort]    = @sort
+      session[:tags] = @tags_to_show
+      @tags = @tags_to_show
     end
 
     def new
