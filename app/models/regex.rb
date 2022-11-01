@@ -9,9 +9,19 @@ class Regex < ActiveRecord::Base
         if str == '' or str.nil?
             return "No input."
         else
-            res = str =~ reg
-            res.nil?? "No match!": "First match at index #{res}."
-        end
+            ##            res = str =~ reg
+            ##            res.nil?? "No match!": "First match at index #{res}."
+            res=str.match(reg)
+            if res
+                res=res[0]
+                if res == str
+                    return  "#{ res } true"
+                else
+                    return  "#{ res } false"
+                end
+            else
+                return  false
+            end
+        end    
     end
-
-end
+end    
