@@ -1,38 +1,35 @@
 <h2>Create New regex</h2>
 
-<%= form_for :regex, url: regexes_path do |f| %>
+<%= form_for @regex, url: regexes_path do |f| %>
   <%= f.label :title ,'Name', :class => 'col-form-label' %>
   <%= f.text_field :title, :class => 'form-control' %>
-  <%= f.label :expression, 'Expression', :class => 'col-form-label' %>
+  <%= f.label :expression, 'Expression (Hint: do not wrap your regex with //)', :class => 'col-form-label' %>
   <%= f.text_field :expression, :class => 'form-control' %>
   <%= f.label :description, 'Description', :class => 'col-form-label' %>
   <%= f.text_field :description, :class => 'form-control' %>
   <%= f.label :tag, 'Tag', :class => 'col-form-label' %>
   <%= f.text_field :tag, :class => 'form-control' %>
   <br/>
-  
-  <p>
-    <b>Country</b><br/>
-    <input id="person_country_usa" name="person[country]" type="radio" value="USA"/> 
-    USA
-    <input id="person_country_canada" name="person[country]" type="radio" value="Canada" /> 
-    Canada
-    <input id="person_country_mexico" name="person[country]" type="radio" value="Mexico" /> 
-    Mexico<br/>
-  </p>
 
 <p>
 <b>Testcases:</b><br/>
-   <%= f.fields_for :testcase do |ff| %>
-     content: <%= ff.text_field :content, :size => 50 %>
-     matches: <%= ff.radio_button :match, true %> True
-    <%= ff.radio_button :match, false %> False
+   <%= f.fields_for :testcases do |ff| %>
+   <div class='form_group'>
+    <%= ff.label :content %>
+    <%= ff.text_field :content, :size => 50 %>
+    <%= ff.radio_button :match, true, :class => 'overflow' %>
+    <%= ff.label :match_true, 'True', :class => 'overflow' %>
+    <%= ff.radio_button :match,false , :class => 'overflow'%>
+    <%= ff.label :match_false, 'False' , :class => 'overflow'%>
+    <%= ff.check_box :_destroy, :class => 'overflow' %>
+    <%= ff.label :_destroy, 'delete' %>
     </p>
+    </div>
     <% end %>
 </p>
-
-
-
+    <%= f.submit 'Add testcase', :name => "add_testcase" ,:class => 'btn btn-primary'%>
+    <%= f.submit 'Delete checked testcases', :name => 'remove_testcase',:class => 'btn btn-warning' %> <br/>
+<br/>
   <%= f.submit 'Save Changes', :class => 'btn btn-success' %>
   <%= link_to 'Cancel', regexes_path, :class => 'btn btn-secondary' %>
 <% end %>

@@ -1,6 +1,12 @@
 class Regex < ActiveRecord::Base
     has_many :testcases
-    accepts_nested_attributes_for :testcases
+    accepts_nested_attributes_for :testcases, :allow_destroy => true 
+
+    validates :title, presence: { message: "Regex must have name!" }
+    validates :expression, presence: { message: "Regex must have expression!" }
+    # validates :expression, presence: true
+    # validates_associated :testcases
+
 
     def self.parse_tag(tags)
 
@@ -15,7 +21,8 @@ class Regex < ActiveRecord::Base
             return "No input."
         else
             res = str =~ reg
-            res.nil?? "No match!": "First match at index #{res}."
+            res.nil?? "No match!": "Matches!"
+            # "First match at index #{res}."
         end
     end
 end
