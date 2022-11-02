@@ -11,6 +11,19 @@ Background: I am on the homepage and I can see all regexes
     | Negative Integer          | -\d+                              | 2022-10-29 20:04:51 UTC   | number    | Negative integers.            |
     | Integer                   | -?\d+                             | 2022-10-29 20:04:51 UTC   | number    | Should match all integers.    |
 
+    Given the following testcases exist:
+    | regex_id  | match | content       |
+    | 1         | true  | 23:59         |
+    | 1         | false | 25:64         |
+    | 2         | true  | real_id       |
+    | 2         | false | fake^id       |
+    | 3         | true  | test@test.com |
+    | 3         | false | notanemail    |
+    | 4         | true  | -42           |
+    | 4         | false | 56            |
+    | 5         | true  | 345           |
+    | 5         | false | asda          |
+
     And I am on the homepage
 
     Then I should see "Time in 24-hour format"
