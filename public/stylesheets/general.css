@@ -2,7 +2,8 @@ html, body {
   margin: 0;
   padding: 0;
   background: White;
-  color: DarkSlateGrey;
+  /*color: DarkSlateGrey;*/
+  color: rgb(94, 156, 81);
   font-family: Tahoma, Verdana, sans-serif;
   font-size: 10pt;
 }
@@ -38,16 +39,16 @@ h1 a {
   background: transparent;
   color: white;
 }
-table#movies {
+table#regexes {
   border-collapse: collapse;
   width: 100%;
   border-bottom: 2px solid black;
 }
-table#movies th {
+table#regexes th {
   border: 2px solid black;
   font-weight: bold;
 }
-table#movies th, table#movies td {
+table#regexes th, table#regexes td {
   padding: 4px;
   text-align: left;
 }
