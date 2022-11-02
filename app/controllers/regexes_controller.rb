@@ -75,13 +75,8 @@ class RegexesController < ApplicationController
     def new
         @regex = Regex.new
         @regex.testcases.build
-<<<<<<< HEAD
-        #@regex.testcases.build
-        #@regex.testcases.build
-=======
         # @regex.testcases.build
         # @regex.testcases.build
->>>>>>> main
     end
 
     def create

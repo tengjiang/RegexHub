@@ -18,11 +18,11 @@
     <%= ff.label :content, "testcase #{ff.options[:child_index]+1}" %>
     <%= ff.text_field :content, :size => 50 %>
     <%= ff.radio_button :match, true %>
-    <%= ff.label :match_true, "testcase #{ff.options[:child_index]+1} true" %>
+    <%= ff.label :match_true, "testcase #{ff.options[:child_index]+1} true", :class => 'hidden' %> Matches
     <%= ff.radio_button :match, false %>
-    <%= ff.label :match_false, "testcase #{ff.options[:child_index]+1} false" %>
+    <%= ff.label :match_false, "testcase #{ff.options[:child_index]+1} false", :class => 'hidden' %> Doesn't Match
     <%= ff.check_box :_destroy %>
-    <%= ff.label :_destroy, "delete testcase #{ff.options[:child_index]+1}" %>
+    <%= ff.label :_destroy, "delete testcase #{ff.options[:child_index]+1}", :class => 'hidden'%> Delete
     </p>
     </div>
     <% end %>
