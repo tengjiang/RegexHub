@@ -13,7 +13,7 @@ regex = [{:title => 'Time in 24-hour format', :expression => '^([01]?[0-9]|2[0-3
       	 {:title => 'Integer', :expression => '^-?\d+$', :description => 'Should match all integers.', :tag => 'number'},
   	 	]
 
-testcases = [{:regex_id => 1, :match => 'ture', :content => '23:59'},
+testcases = [{:regex_id => 1, :match => 'true', :content => '23:59'},
 			 {:regex_id => 1, :match => 'false', :content => '25:64'},
 			 {:regex_id => 2, :match => 'true', :content => 'real_id'},
 			 {:regex_id => 2, :match => 'false', :content => 'fake^id'},
@@ -32,4 +32,4 @@ end
 
 testcases.each do |testcase|
 	Testcase.create!(testcase)
-  end
+end

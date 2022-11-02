@@ -15,7 +15,7 @@
 <b>Testcases:</b><br/>
    <%= f.fields_for :testcases do |ff| %>
    <div class='form_group'>
-    <%= ff.label :content %>
+    <%= ff.label :content, 'testcase' %>
     <%= ff.text_field :content, :size => 50 %>
     <%= ff.radio_button :match, true %>
     <%= ff.label :match_true, 'True' %>
