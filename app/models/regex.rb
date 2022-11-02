@@ -27,12 +27,12 @@ class Regex < ActiveRecord::Base
             if res
                 res=res[0]
                 if res == str
-                    return  "match"
+                    return  "Matches!"
                 else
-                    return  "No match"
+                    return  "No match!"
                 end
             else
-                return  "No match"
+                return  "No match!"
             end
         end    
     end
