@@ -15,14 +15,14 @@
 <b>Testcases:</b><br/>
    <%= f.fields_for :testcases do |ff| %>
    <div class='form_group'>
-    <%= ff.label :content %>
+    <%= ff.label :content, "testcase #{ff.options[:child_index]+1}" %>
     <%= ff.text_field :content, :size => 50 %>
     <%= ff.radio_button :match, true %>
-    <%= ff.label :match_true, 'True' %>
+    <%= ff.label :match_true, "testcase #{ff.options[:child_index]+1} true" %>
     <%= ff.radio_button :match, false %>
-    <%= ff.label :match_false, 'False' %>
+    <%= ff.label :match_false, "testcase #{ff.options[:child_index]+1} false" %>
     <%= ff.check_box :_destroy %>
-    <%= ff.label :_destroy, 'delete' %>
+    <%= ff.label :_destroy, "delete testcase #{ff.options[:child_index]+1}" %>
     </p>
     </div>
     <% end %>
