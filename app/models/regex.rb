@@ -20,7 +20,6 @@ class Regex < ActiveRecord::Base
         if str == '' or str.nil?
             return "No input."
         else
-<<<<<<< HEAD
             ##  res = str =~ reg
             ##  res.nil?? "No match!": "First match at index #{res}."
             res=str.match(reg)
