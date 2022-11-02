@@ -21,6 +21,10 @@ When /I (un)?check the following tags: (.*)/ do |uncheck, tags|
     # pending "Fill in this step in regex_steps.rb"
   end
 
+When /I check the following statements: (.*)/ do |statement|
+    radio_button()
+end
+
 Then /I should see all the regex/ do
   Regex.all.all.each do |regex|
         step %{I should see "#{regex.title}"}
