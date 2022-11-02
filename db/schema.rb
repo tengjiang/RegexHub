@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221029192404) do
+ActiveRecord::Schema.define(version: 20221101012928) do
 
   create_table "movies", force: :cascade do |t|
     t.string   "title"
@@ -30,5 +30,15 @@ ActiveRecord::Schema.define(version: 20221029192404) do
     t.string   "tag"
     t.datetime "created_at",  null: false
   end
+
+  create_table "testcases", force: :cascade do |t|
+    t.integer  "regex_id"
+    t.string  "match"
+    t.string   "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "testcases", ["regex_id"], name: "index_testcases_on_regex_id"
 
 end
