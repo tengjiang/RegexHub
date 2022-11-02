@@ -1,9 +1,9 @@
 <h2>Create New regex</h2>
 
 <%= form_for @regex, url: regexes_path do |f| %>
-  <%= f.label :title ,'Name', :class => 'col-form-label' %>
+  <%= f.label :title ,'Name (Cannot be empty)', :class => 'col-form-label' %>
   <%= f.text_field :title, :class => 'form-control' %>
-  <%= f.label :expression, 'Expression (Hint: do not wrap your regex with //)', :class => 'col-form-label' %>
+  <%= f.label :expression, 'Expression (Hint: Cannot be empty; do not wrap your regex with //)', :class => 'col-form-label' %>
   <%= f.text_field :expression, :class => 'form-control' %>
   <%= f.label :description, 'Description', :class => 'col-form-label' %>
   <%= f.text_field :description, :class => 'form-control' %>
@@ -17,11 +17,11 @@
    <div class='form_group'>
     <%= ff.label :content %>
     <%= ff.text_field :content, :size => 50 %>
-    <%= ff.radio_button :match, true, :class => 'overflow' %>
-    <%= ff.label :match_true, 'True', :class => 'overflow' %>
-    <%= ff.radio_button :match,false , :class => 'overflow'%>
-    <%= ff.label :match_false, 'False' , :class => 'overflow'%>
-    <%= ff.check_box :_destroy, :class => 'overflow' %>
+    <%= ff.radio_button :match, true %>
+    <%= ff.label :match_true, 'True' %>
+    <%= ff.radio_button :match, false %>
+    <%= ff.label :match_false, 'False' %>
+    <%= ff.check_box :_destroy %>
     <%= ff.label :_destroy, 'delete' %>
     </p>
     </div>
