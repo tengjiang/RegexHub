@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20221101012928) do
 
   create_table "testcases", force: :cascade do |t|
     t.integer  "regex_id"
-    t.string  "match"
+    t.string   "match"
     t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
