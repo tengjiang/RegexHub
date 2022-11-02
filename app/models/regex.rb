@@ -20,20 +20,20 @@ class Regex < ActiveRecord::Base
         if str == '' or str.nil?
             return "No input."
         else
-            ##  res = str =~ reg
-            ##  res.nil?? "No match!": "Matches!"
+            res = str =~ reg
+            res.nil?? "No match!": "Matches!"
             ##  res.nil?? "No match!": "First match at index #{res}."
-            res=str.match(reg)
-            if res
-                res=res[0]
-                if res == str
-                    return  "Matches!"
-                else
-                    return  "No match!"
-                end
-            else
-                return  "No match!"
-            end
+            # res=str.match(reg)
+            # if res
+            #     res=res[0]
+            #     if res == str
+            #         return  "Matches!"
+            #     else
+            #         return  "No match!"
+            #     end
+            # else
+            #     return  "No match!"
+            # end
         end    
     end
 end    
