@@ -3,7 +3,14 @@ Given /the following regexes exist/ do |regex_table|
       Regex.create regex
     end
     # pending "Fill in this step in regex_steps.rb"
+end
+
+Given /the following testcases exist/ do |testcase_table|
+  testcase_table.hashes.each do |testcase|
+    Testcase.create testcase
   end
+  # pending "Fill in this step in regex_steps.rb"
+end
 
 
 
