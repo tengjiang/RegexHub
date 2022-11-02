@@ -1,7 +1,7 @@
-Feature: delete an existing regex
-    As a user, I want to delete an existing regex by myself
+Feature: Test if index page is loaded properly
+    As a user, I want the index page loaded properly
 
-Background: I am on the homepage and I can see all regexes
+Background: All the regexes and testcases exist
 
     Given the following regexes exist:
     | title                     | expression                        | created_at                | tag       | description                   |
@@ -11,7 +11,21 @@ Background: I am on the homepage and I can see all regexes
     | Negative Integer          | -\d+                              | 2022-10-29 20:04:51 UTC   | number    | Negative integers.            |
     | Integer                   | -?\d+                             | 2022-10-29 20:04:51 UTC   | number    | Should match all integers.    |
 
-    And I am on the homepage
+    Given the following testcases exist:
+    | regex_id  | match | content       |
+    | 1         | true  | 23:59         |
+    | 1         | false | 25:64         |
+    | 2         | true  | real_id       |
+    | 2         | false | fake^id       |
+    | 3         | true  | test@test.com |
+    | 3         | false | notanemail    |
+    | 4         | true  | -42           |
+    | 4         | false | 56            |
+    | 5         | true  | 345           |
+    | 5         | false | asda          |
+
+Scenario: Check if index page is loaded properly
+    When I am on the homepage
 
     Then I should see "Time in 24-hour format"
 
@@ -23,36 +37,13 @@ Background: I am on the homepage and I can see all regexes
 
     And I should see "Integer"
 
-Scenario: delete an existing regex and save
-    When I go to the details page for "Username"
+Scenario: Check if the "Add a new regular expression" button works properly
+    When I am on the homepage
 
-    And I follow "Delete"
+    And I go to the Add new regular expression page
 
-    Then I am on the homepage
+    Then I should see "Create New regex"
 
-    And I should see "Time in 24-hour format"
+    And I follow "Cancel"
 
-    And I should see "Email"
-
-    And I should see "Negative Integer"
-
-    And I should see "Integer"
-
-    And I should not see "Username"
-
-Scenario: delete an existing regex and not save
-    When I go to the details page for "Username"
-
-    And I follow "Back to homepage"
-
-    Then I am on the homepage
-
-    And I should see "Time in 24-hour format"
-
-    And I should see "Username"
-
-    And I should see "Email"
-
-    And I should see "Negative Integer"
-
-    And I should see "Integer"
+    Then I should see "All Regexes"
