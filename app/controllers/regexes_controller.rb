@@ -18,7 +18,7 @@ class RegexesController < ApplicationController
                 Testcase.create(regex_id:@regex.id,content:params[:text][:content],match:'true')
             end
             render :action => 'show'
-            
+
         end
 
     end
@@ -75,8 +75,8 @@ class RegexesController < ApplicationController
     def new
         @regex = Regex.new
         @regex.testcases.build
-        @regex.testcases.build
-        @regex.testcases.build
+        #@regex.testcases.build
+        #@regex.testcases.build
     end
 
     def create
@@ -114,7 +114,7 @@ class RegexesController < ApplicationController
                             error_msg.push("Regex No.#{k.to_i+1} does not behave as expected.")
                             #puts "Regex No.#{k} does not behave as expected."
                             testcase_error_flag = true
-                            #puts @regex.errors.messages.map { |k,v| v }.join('<br>') 
+                            #puts @regex.errors.messages.map { |k,v| v }.join('<br>')
                         end
                     end
                 end
@@ -123,7 +123,7 @@ class RegexesController < ApplicationController
 
             if !(@regex.valid? & !testcase_error_flag)
                 all_msg = error_msg + @regex.errors.messages.map { |k,v| v }
-                flash[:notice] = all_msg.join('<br>').html_safe   
+                flash[:notice] = all_msg.join('<br>').html_safe
             else
                 @regex.save
                 flash[:notice] = "#{@regex.title} was successfully created."
