@@ -9,7 +9,7 @@
         <%= check_box_tag "ratings[#{rating}]", "1",  @ratings_to_show.include?(rating), :id => "ratings_#{rating}", class: 'form-check-input' %>
       </div>
     <% end %>
-    <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-primary' %>
+    <%= submit_tag 'Refresh', id: 'ratings_submit', class: 'btn btn-success' %>
 <% end %>
 
 <table class="table table-striped col-md-12" id="movies">
@@ -40,4 +40,4 @@
     <% end %>
   </tbody>
 </table>
-<%= link_to 'Add new movie', new_movie_path, :class => 'btn btn-primary' %>
+<%= link_to 'Add new movie', new_movie_path, :class => 'btn btn-success' %>

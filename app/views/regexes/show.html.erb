@@ -1,6 +1,7 @@
 <!--  app/views/regexes/show.html.erb -->
 <h2>Details about <em><%= @regex.title %></em></h2>
 
+
 <ul id="details">
   <li>
     Tag:
@@ -26,12 +27,35 @@
 <%= form_tag regex_path(@regex,@text), :method => :get do %>
   <%= text_field :text, 'content', :placeholder => 'Type something.',:value => @regex_input,:class => 'form-control',:class =>'col-1', :class => 'overflow'%>
   <%= @validity %>
-  <%= submit_tag 'Check', :class => 'btn btn-primary' %>
+  <%= submit_tag 'Check', :class => 'btn btn-success' %>
+  <%= submit_tag 'Add to testcase', :class => 'btn btn-primary' %>
 <% end %>
+
+<h4>Testcases:</h4>
+<table class="table table-striped col-md-12" id="testcases">
+  <thead>
+    <tr>
+      <th>Content</th>
+      <th>Matches or not</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @testcases.each do |testcase| %>
+      <tr>
+        <td>
+          <%= testcase.content %>
+        </td>
+        <td>
+          <%= testcase.match %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <br/>
 <div class="row">
-  <%= link_to 'Delete', regex_path(@regex), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>
-  <%= link_to 'Back to homepage', regexes_path, :class => 'btn btn-primary col-2' %>
+  <%#=link_to 'Delete', regex_path(@regex), 'data-method' => 'delete', 'data-confirm' => 'Are you sure?', :class => 'btn btn-danger col-2' %>
+  <%= link_to 'Back to homepage', regexes_path, :class => 'btn btn-success col-2' %>
 </div>
 
