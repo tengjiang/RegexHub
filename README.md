@@ -1,8 +1,7 @@
 # RegexHub
-## Introduction:
 Project for Engineering SaaS. A platform to share and get regular expressions in Ruby.
 
-## Instructions
+# Instructions:
 * Run bundle install to make sure all gems are properly installed. We are using Ruby with version 2.6.6, and Rails with version 4.2.10:
  ```bundle install --without production```
 * Create the database schema and populate the initial data:
