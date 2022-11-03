@@ -1,6 +1,17 @@
 class RegexesController < ApplicationController
     def index
         @regexes = Regex.all
+        @regex_input = []
+        
+        @regex_input = params[:text].nil?? Hash.new: params[:text] 
+        @validity = Hash.new
+        @regex_input.each do |k,v|
+            if !v.empty?
+                @regex = Regex.find(k.to_s)
+                @validity[k] = Regex.check_integrity(@regex.expression,@regex_input[k])
+                render :action => 'index'
+            end
+        end
     end
   
     def show

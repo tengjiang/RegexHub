@@ -14,6 +14,13 @@ RSpec.describe RegexesController, type: :controller do
       get :index
       expect(response).to render_template("index")
     end
+    it "does not react to text with no input" do
+      allow(Regex).to receive(:create)
+      Regex.create! regex_valid_attributes
+      Regex.create! regex_valid_attributes
+      get :index, {:text => {'1': 'test1'}, :commit => 'Check'}
+      expect(response).to render_template("index")
+    end
   end
 
   context '#new' do
