@@ -1,13 +1,34 @@
 <h2>Create New regex</h2>
+Here is the place for you to create a new regular expression - with rules!
+<ul id="Create new hints">
+  <li>
+  Name and expression are required field. Description and Tag are optional but recommended.
+  </li>
+  <li>
+    For now, please do not wrap your regex around //.
+  </li>
+  <li>
+    You can Add more testcase(s) by clicking on "Add testcase" button.
+  </li>
+  <li>
+    You can select the "delete" checkbox for testcase(s) you want to delete. If you delete all of them, you will get a notice that we require at least one valid testcase!
+  </li>
+    <li>
+    Please make sure you do not leave the testcase or the "matches or not" radio button blank, otherwise notice will be throwed.
+  </li>
+  <li>
+    Please make sure the testcase you specifies does/does match not your regex according to the way you specify, otherwise notice will be throwed.
+  </li>
+</ul>
 
 <%= form_for @regex, url: regexes_path do |f| %>
   <%= f.label :title ,'Name (Cannot be empty)', :class => 'col-form-label' %>
   <%= f.text_field :title, :class => 'form-control' %>
   <%= f.label :expression, 'Expression (Hint: Cannot be empty; do not wrap your regex with //)', :class => 'col-form-label' %>
   <%= f.text_field :expression, :class => 'form-control' %>
-  <%= f.label :description, 'Description', :class => 'col-form-label' %>
+  <%= f.label :description, 'Description (Optional)', :class => 'col-form-label' %>
   <%= f.text_field :description, :class => 'form-control' %>
-  <%= f.label :tag, 'Tag', :class => 'col-form-label' %>
+  <%= f.label :tag, 'Tag (Optional)', :class => 'col-form-label' %>
   <%= f.text_field :tag, :class => 'form-control' %>
   <br/>
 
@@ -15,14 +36,14 @@
 <b>Testcases:</b><br/>
    <%= f.fields_for :testcases do |ff| %>
    <div class='form_group'>
-    <%= ff.label :content, "testcase #{ff.options[:child_index]+1}" %>
+    <%= ff.label :content, "testcase #{ff.options[:child_index]+1}" %>: 
     <%= ff.text_field :content, :size => 50 %>
     <%= ff.radio_button :match, true %>
-    <%= ff.label :match_true, "testcase #{ff.options[:child_index]+1} true" %>
+    <%= ff.label :match_true, "testcase #{ff.options[:child_index]+1} true", :class => 'hidden' %> Matches
     <%= ff.radio_button :match, false %>
-    <%= ff.label :match_false, "testcase #{ff.options[:child_index]+1} false" %>
+    <%= ff.label :match_false, "testcase #{ff.options[:child_index]+1} false", :class => 'hidden' %> Doesn't match
     <%= ff.check_box :_destroy %>
-    <%= ff.label :_destroy, "delete testcase #{ff.options[:child_index]+1}" %>
+    <%= ff.label :_destroy, "delete testcase #{ff.options[:child_index]+1}", :class => 'hidden'%> Delete
     </p>
     </div>
     <% end %>
