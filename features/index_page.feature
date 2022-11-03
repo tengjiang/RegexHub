@@ -46,4 +46,4 @@ Scenario: Check if the "Add a new regular expression" button works properly
 
     And I follow "Cancel"
 
-    Then I should see "All Regexes"
+    Then I should see "all of our regexes"

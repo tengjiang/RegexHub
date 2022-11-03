@@ -61,57 +61,51 @@ RSpec.describe RegexesController, type: :controller do
     end
   end
 
-
-
   context '#create' do
-      describe 'Regex is created' do
-         it 'executes the creation query against the database' do
-             regex = double('regex',:title => "fake regex", :content => "fake content")
-             expect(Regex).to receive(:create!).with({title: "fake regex"}).and_return regex
-             post :create, {regex: {title:"fake regex", content:"fake content"}}
-         end
-
-         it 'assign the regex to the template' do
-             regex = double('regex',:title => "fake regex", :content => "fake content")
-             expect(Regex).to receive(:create!).with({title: "fake regex"}).and_return regex
-             post :create, {regex: {title:"fake regex", content:"fake content"}}
-             expect(assigns(:regex)).to eq regex
-         end
-
-         it 'redirects to the homepage' do
-             post :create, {regex: {title:"fake regex", content:"fake content"}}
-             expect(response).to redirect_to regexes_path
-         end
-      end
+    it 'successful add testcases' do
+      get :create, {:regex=>{:title=>"test", :expression=>"test"},:add_testcase=>"Add testcase"}
+      expect(response).to render_template("new")
+    end
+    it 'successfully deletes testcases' do
+      get :create, {:regex=>{:title=>"test", :expression=>"test"},:remove_testcase=>"Delete select testcases"}
+      expect(response).to render_template("new")
+    end
+    it 'successfully submits' do
+      get :create, {:regex=>{:title=>"test", :expression=>"test"}}
+      expect(response).to redirect_to @regexes_path
+    end
+    it 'does not allow wrong testcases' do
+      get :create, {:regex=>{:title=>"test", :expression=>"test",:testcases_attributes=>{'0'=>{:content=>'test',:match=>'false'}}}}
+      expect(response).to render_template("new")
+    end
   end
 
   # delete some examples
   context '#destroy' do
-      describe 'regex is destroyed' do
+    describe 'regex is destroyed' do
 
-         it 'executes the deletion query against the database' do
-             regex = double('regex', :title => "fake regex", :content => "fake content")
-             allow(Regex).to receive(:find).and_return regex
-             expect(regex).to receive(:destroy)
-             delete :destroy, { id: 1 }
-         end
-
-         it 'assign the regex to the template' do
-             regex = double('regex', :title => "fake regex", :content => "fake content")
-             allow(Regex).to receive(:find).and_return regex
-             expect(regex).to receive(:destroy)
-             delete :destroy, { id: 1 }
-             expect(assigns(:regex)).to eq regex
-         end
-
-         it 'redirects to the homepage' do
-             regex = double('regex', :title => "fake regex", :content => "fake content")
-             allow(Regex).to receive(:find).and_return regex
-             expect(regex).to receive(:destroy)
-             delete :destroy, { id: 1 }
-             expect(response).to redirect_to regexes_path
-         end
+      it 'executes the deletion query against the database' do
+        regex = double('regex', :title => "fake regex", :content => "fake content")
+        allow(Regex).to receive(:find).and_return regex
+        expect(regex).to receive(:destroy)
+        delete :destroy, { id: 1 }
       end
-  end
 
+      it 'assign the regex to the template' do
+        regex = double('regex', :title => "fake regex", :content => "fake content")
+        allow(Regex).to receive(:find).and_return regex
+        expect(regex).to receive(:destroy)
+        delete :destroy, { id: 1 }
+        expect(assigns(:regex)).to eq regex
+      end
+
+      it 'redirects to the homepage' do
+        regex = double('regex', :title => "fake regex", :content => "fake content")
+        allow(Regex).to receive(:find).and_return regex
+        expect(regex).to receive(:destroy)
+        delete :destroy, { id: 1 }
+        expect(response).to redirect_to regexes_path
+      end
+    end
+  end
 end
