@@ -26,24 +26,16 @@ Background: All the regexes and testcases exist
 
 Scenario: Check if index page is loaded properly
     When I am on the homepage
-
     Then I should see "Time in 24-hour format"
-
     And I should see "Username"
-
     And I should see "Email"
-
     And I should see "Negative Integer"
-
     And I should see "Integer"
 
 Scenario: Check if the "Add a new regular expression" button works properly
     When I am on the homepage
-
     And I go to the Add new regular expression page
-
     Then I should see "Create New regex"
-
     And I follow "Cancel"
-
     Then I should see "All Regexes"
+    
