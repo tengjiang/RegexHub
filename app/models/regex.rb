@@ -36,7 +36,7 @@ class Regex < ActiveRecord::Base
     end
 
     def self.all_tags
-      ['time', 'username', 'email', 'number']
+      self.select(:tag).map(&:tag).uniq
     end
 
     def self.with_tags(tag)

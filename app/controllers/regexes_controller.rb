@@ -1,4 +1,5 @@
 class RegexesController < ApplicationController
+=begin
     def index
         @regexes = Regex.all
         @regex_input = []
@@ -13,6 +14,7 @@ class RegexesController < ApplicationController
             end
         end
     end
+=end
   
     def show
         id = params[:id] # retrieve regex ID from URI route
@@ -60,7 +62,7 @@ class RegexesController < ApplicationController
         end
 
         r = Hash[ *session[:tags].collect { |v| [ v, 1 ] }.flatten ]
-        redirect_to regexes_path(:sort => session[:sort], :tags => r)
+        redirect_to regexes_path(:sort => session[:sort], :tags => r,:text=>params[:text])
       else
         p "t4"
         if params[:tags].nil?
@@ -84,6 +86,19 @@ class RegexesController < ApplicationController
       session[:sort]    = @sort
       session[:tags] = @tags_to_show
       @tags = @tags_to_show
+
+      @regex_input = []
+        
+      @regex_input = params[:text].nil?? Hash.new: params[:text] 
+      @validity = Hash.new
+      @regex_input.each do |k,v|
+      if !v.empty?
+        @regex = Regex.find(k.to_s)
+        @validity[k] = Regex.check_integrity(@regex.expression,@regex_input[k])
+      end
+    end
+    puts params
+
     end
 
     def new
@@ -141,6 +156,11 @@ class RegexesController < ApplicationController
             else
                 @regex.save
                 flash[:notice] = "#{@regex.title} was successfully created."
+                # before redirecting to homepage, if we have a new tag, add that to the session to show. (If no session, do not need to add.)
+                if (!session[:tags].nil? & !params[:regex][:tag].nil? & !session[:tags].include?(params[:regex][:tag]))
+                    session[:tags].push(params[:regex][:tag])
+                    # puts session[:tags]
+                end
                 redirect_to regexes_path and return
             end
         end
