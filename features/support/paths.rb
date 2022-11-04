@@ -23,8 +23,7 @@ module NavigationHelpers
     when /^the details page for "(.*)"$/i
 
       regex_path(Regex.find_by_title($1))
-    when /^the similar movies page for "(.*)"$/i
-      search_directors_path(Regex.find_by_title($1))
+
     # Here is an example that pulls values out of the Regexp:
     #
     #   when /^(.*)'s profile page$/i
