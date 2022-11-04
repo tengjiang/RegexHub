@@ -4,6 +4,18 @@
 <p>
 <h5>Please make sure to try clicking into <b>the detailed page of each regex</b> and try the <b>"Add new regular expression"</b> button!</h5>
 <h5>We are only supporting regular expressions for Ruby for iter-1.</h5></p>
+
+<%= form_tag regexes_path, method: :get, enforce_utf8: false, id: 'tags_form' do %>
+    Include:
+    <% @all_tags.each do |tag| %>
+      <div class="form-check  form-check-inline">
+        <%= label_tag "tags[#{tag}]", tag, class: 'form-check-label' %>
+        <%= check_box_tag "tags[#{tag}]", "1",  @tags_to_show.include?(tag), :id => "tags_#{tag}", class: 'form-check-input' %>
+      </div>
+    <% end %>
+    <%= submit_tag 'Refresh', id: 'tags_submit', class: 'btn btn-primary' %>
+<% end %>
+
 <table class="table table-striped col-md-12" id="regexes">
   <thead>
     <tr>

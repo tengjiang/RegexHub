@@ -36,7 +36,7 @@ Here is the place for you to create a new regular expression - with rules!
 <b>Testcases:</b><br/>
    <%= f.fields_for :testcases do |ff| %>
    <div class='form_group'>
-    <%= ff.label :content, "testcase #{ff.options[:child_index]+1}" %>: 
+    <%= ff.label :content, "testcase #{ff.options[:child_index]+1}" %>:
     <%= ff.text_field :content, :size => 50 %>
     <%= ff.radio_button :match, true %>
     <%= ff.label :match_true, "testcase #{ff.options[:child_index]+1} true", :class => 'hidden' %> Matches
