@@ -40,8 +40,6 @@ class Regex < ActiveRecord::Base
     # functions for filter
     def self.tags
         pluck(:tag).uniq
-      end
-  
       def self.find_all_by_tags(tags, ordering)
         self.where(tag: tags).order(ordering)
       end
@@ -57,5 +55,6 @@ class Regex < ActiveRecord::Base
           return self.where(tag: tag)
         end
       end
+    end 
       
 end
