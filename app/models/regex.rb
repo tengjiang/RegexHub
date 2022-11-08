@@ -52,9 +52,9 @@ class Regex < ActiveRecord::Base
   
     def self.with_tags(tag)
         if tag.nil?
-          return self.where(tag: self.all_tags)
+            return self.where(tag: self.all_tags)
         else
-          return self.where(tag: tag)
+            return self.where(tag: tag)
         end
     end
 
