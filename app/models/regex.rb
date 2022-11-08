@@ -40,21 +40,22 @@ class Regex < ActiveRecord::Base
     # functions for filter
     def self.tags
         pluck(:tag).uniq
-      def self.find_all_by_tags(tags, ordering)
+    end
+
+    def self.find_all_by_tags(tags, ordering)
         self.where(tag: tags).order(ordering)
-      end
+    end
   
-      def self.all_tags
+    def self.all_tags
         self.select(:tag).map(&:tag).uniq
-      end
+    end
   
-      def self.with_tags(tag)
+    def self.with_tags(tag)
         if tag.nil?
           return self.where(tag: self.all_tags)
         else
           return self.where(tag: tag)
         end
-      end
-    end 
-      
+    end
+
 end
