@@ -1,6 +1,6 @@
 class Regex < ActiveRecord::Base
     has_many :testcases
-    accepts_nested_attributes_for :testcases, :allow_destroy => true 
+    accepts_nested_attributes_for :testcases, :allow_destroy => true
 
     validates :title, presence: { message: "Regex must have name!" }
     validates :expression, presence: { message: "Regex must have expression!" }
@@ -36,4 +36,4 @@ class Regex < ActiveRecord::Base
             # end
         end    
     end
-end    
+end
