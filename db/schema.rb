@@ -24,15 +24,6 @@ ActiveRecord::Schema.define(version: 20221108060031) do
   add_index "likes", ["user_id", "regex_id"], name: "index_likes_on_user_id_and_regex_id", unique: true
   add_index "likes", ["user_id"], name: "index_likes_on_user_id"
 
-  create_table "movies", force: :cascade do |t|
-    t.string   "title"
-    t.string   "rating"
-    t.text     "description"
-    t.datetime "release_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "director"
-  end
 
   create_table "regexes", force: :cascade do |t|
     t.string   "title"
