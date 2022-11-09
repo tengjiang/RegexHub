@@ -11,7 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221101012928) do
+ActiveRecord::Schema.define(version: 20221108060031) do
+
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "regex_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "likes", ["regex_id"], name: "index_likes_on_regex_id"
+  add_index "likes", ["user_id", "regex_id"], name: "index_likes_on_user_id_and_regex_id", unique: true
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id"
+
+  create_table "movies", force: :cascade do |t|
+    t.string   "title"
+    t.string   "rating"
+    t.text     "description"
+    t.datetime "release_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "director"
+  end
 
   create_table "regexes", force: :cascade do |t|
     t.string   "title"
@@ -30,5 +51,12 @@ ActiveRecord::Schema.define(version: 20221101012928) do
   end
 
   add_index "testcases", ["regex_id"], name: "index_testcases_on_regex_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email"
+    t.string   "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end

@@ -1,5 +1,6 @@
 class Regex < ActiveRecord::Base
     has_many :testcases
+    has_many :likes
     accepts_nested_attributes_for :testcases, :allow_destroy => true
 
     validates :title, presence: { message: "Regex must have name!" }
