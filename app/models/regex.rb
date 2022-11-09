@@ -22,7 +22,18 @@ class Regex < ActiveRecord::Base
         else
             res = str =~ reg
             res.nil?? "No match!": "Matches!"
-            # "First match at index #{res}."
+            ## "First match at index #{res}."
+            # res=str.match(reg)
+            # if res
+            #     res=res[0]
+            #     if res == str
+            #         return  "Matches!"
+            #     else
+            #         return  "No match!"
+            #     end
+            # else
+            #     return  "No match!"
+            # end
         end
     end
 
