@@ -7,7 +7,7 @@ RegexHub::Application.routes.draw do
   # get '/register', to: 'users#new'
   # resources :users, only: [:create]
 
-  # resources :likes, only: [:create, :destroy]
+  resources :likes, only: [:create, :destroy]
   
 
   resources :users

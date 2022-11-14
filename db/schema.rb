@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221108060031) do
+ActiveRecord::Schema.define(version: 20221113055352) do
 
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 20221108060031) do
   add_index "likes", ["regex_id"], name: "index_likes_on_regex_id"
   add_index "likes", ["user_id", "regex_id"], name: "index_likes_on_user_id_and_regex_id", unique: true
   add_index "likes", ["user_id"], name: "index_likes_on_user_id"
-
 
   create_table "regexes", force: :cascade do |t|
     t.string   "title"
