@@ -4,33 +4,41 @@
 
 <ul id="details">
   <li>
-    Tag:
-    <%= @regex.tag %>
-  </li>
-  <li>
-    Expression:
+  <b>
+    <h5>Expression:</b> 
     <%= @regex.expression %>
+    
+    
   </li>
   <li>
-    Released on:
+    Created on:
     <%= @regex.created_at.strftime("%B %d, %Y") %>
+  </li>
+    <li>
+    Tag:
+    <%= @regex.tag.empty?? 'No tag.': @regex.tag %>
   </li>
 </ul>
 
 <h4>Description:</h4>
 <p id="description">
-  <%= @regex.description %>
+  <%= @regex.description.empty?? 'No description.': @regex.description %>
 </p>
 
+<p id='playground'>
 <h4>Try it out:</h4>
 
 <%= form_tag regex_path(@regex,@text), :method => :get do %>
-  <%= text_field :text, 'content', :placeholder => 'Type something.',:value => @regex_input,:class => 'form-control',:class =>'col-1', :class => 'overflow'%>
-  <%= @validity %>
+  <%= label :text,:content,'textbox', :class => 'col-form-label hidden' %>
+  <%= text_field :text, 'content', :placeholder => 'Type something and see if it matches the regex!',:value => @regex_input,:class => 'form-control',:class =>'col-5'%>
   <%= submit_tag 'Check', :class => 'btn btn-success' %>
   <%= submit_tag 'Add to testcase', :class => 'btn btn-primary' %>
+  <br>
+  <b><h5><%= "Results: #{@validity}" %></b>
 <% end %>
+</p>
 
+<p id='display testcase'>
 <h4>Testcases:</h4>
 <table class="table table-striped col-md-12" id="testcases">
   <thead>
@@ -52,10 +60,12 @@
     <% end %>
   </tbody>
 </table>
+</p>
+
 
 <br/>
 <div class="row">
   <%=link_to 'Delete', regex_path(@regex), 'data-method' => 'delete', :class => 'btn btn-danger col-2' %>
-  <%=link_to 'Back to homepage', regexes_path, :class => 'btn btn-success col-2' %>
+  <%= link_to 'Back to homepage', regexes_path, :class => 'btn btn-success col-2' %>
 </div>
 

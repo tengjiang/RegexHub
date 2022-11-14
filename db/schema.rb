@@ -11,17 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20221101012928) do
-
-  create_table "movies", force: :cascade do |t|
-    t.string   "title"
-    t.string   "rating"
-    t.text     "description"
-    t.datetime "release_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "director"
-  end
+ActiveRecord::Schema.define(version: 20221113055352) do
 
   create_table "regexes", force: :cascade do |t|
     t.string   "title"
@@ -29,7 +19,10 @@ ActiveRecord::Schema.define(version: 20221101012928) do
     t.string   "description"
     t.string   "tag"
     t.datetime "created_at",  null: false
+    t.integer  "user_id"
   end
+
+  add_index "regexes", ["user_id"], name: "index_regexes_on_user_id"
 
   create_table "testcases", force: :cascade do |t|
     t.integer  "regex_id"
@@ -40,5 +33,12 @@ ActiveRecord::Schema.define(version: 20221101012928) do
   end
 
   add_index "testcases", ["regex_id"], name: "index_testcases_on_regex_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "username"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
 end

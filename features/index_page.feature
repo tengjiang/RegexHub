@@ -37,5 +37,5 @@ Scenario: Check if the "Add a new regular expression" button works properly
     And I go to the Add new regular expression page
     Then I should see "Create New regex"
     And I follow "Cancel"
-    Then I should see "All Regexes"
-    
+
+    Then I should see "all of our regexes"

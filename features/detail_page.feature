@@ -36,13 +36,17 @@ Scenario: Check try it out function with empty input
 
 Scenario: Check try it out function with a match input
     When I go to the details page for "Time in 24-hour format"
-    And I fill in "Type something." with "12:34"
+
+    And I fill in "textbox" with "12:34"
+
     And I press "Check"
     Then I should see "Matches!"
 
 Scenario: Check try it out function with a mismatch input
     When I go to the details page for "Time in 24-hour format"
-    And I fill in "Type something." with "25:87"
+
+    And I fill in "textbox" with "25:87"
+
     And I press "Check"
     Then I should see "No match!"
 
@@ -53,14 +57,18 @@ Scenario: Add a new empty test case
 
 Scenario: Add a new true test case
     When I go to the details page for "Time in 24-hour format"
-    And I fill in "Type something." with "12:34"
+
+    And I fill in "textbox" with "12:34"
+
     And I press "Add to testcase"
     Then I should see "Testcase successfully added!"
     And I should see "true"
 
 Scenario: Add a new false test case
     When I go to the details page for "Time in 24-hour format"
-    And I fill in "Type something." with "12abc34"
+
+    And I fill in "textbox" with "12abc34"
+
     And I press "Add to testcase"
     Then I should see "Testcase successfully added!"
     And I should see "false"
