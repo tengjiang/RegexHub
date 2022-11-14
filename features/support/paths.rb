@@ -17,6 +17,12 @@ module NavigationHelpers
     
     when /^the Add new regular expression page$/ then '/regexes/new'
 
+    when /^the Sign Up page$/ then '/users/new'
+
+    when /^the Log Out page$/ then '/logout'
+
+    when /^the Log In page$/ then '/login'
+
     # Add more mappings here.
     # when /^the edit page for "(.*)"$/i 
     #   edit_regex_path(Regex.find_by_title($1))
