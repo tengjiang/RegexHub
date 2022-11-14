@@ -3,8 +3,8 @@ class RegexesController < ApplicationController
     def index
         @regexes = Regex.all
         @regex_input = []
-        
-        @regex_input = params[:text].nil?? Hash.new: params[:text] 
+
+        @regex_input = params[:text].nil?? Hash.new: params[:text]
         @validity = Hash.new
         @regex_input.each do |k,v|
             if !v.empty?
@@ -15,7 +15,7 @@ class RegexesController < ApplicationController
         end
     end
 =end
-  
+
     def show
         id = params[:id] # retrieve regex ID from URI route
         @regex = Regex.find(id) # look up regex by unique ID
@@ -51,12 +51,12 @@ class RegexesController < ApplicationController
       end
 
       if params[:tags].nil? and params[:sort].nil?
-        p "t1"
+        #p "t1"
         if not session[:tags].nil?
-          p "t2"
+          #p "t2"
           @tags_to_show = session[:tags]
         else
-          p "t3"
+          #p "t3"
           @tags_to_show = @all_tags
           session[:tags] = @tags_to_show
         end
@@ -64,7 +64,7 @@ class RegexesController < ApplicationController
         r = Hash[ *session[:tags].collect { |v| [ v, 1 ] }.flatten ]
         redirect_to regexes_path(:sort => session[:sort], :tags => r,:text=>params[:text])
       else
-        p "t4"
+        #p "t4"
         if params[:tags].nil?
           @tags_to_show = session[:tags]
         else
@@ -88,8 +88,8 @@ class RegexesController < ApplicationController
       @tags = @tags_to_show
 
       @regex_input = []
-        
-      @regex_input = params[:text].nil?? Hash.new: params[:text] 
+
+      @regex_input = params[:text].nil?? Hash.new: params[:text]
       @validity = Hash.new
       @regex_input.each do |k,v|
       if !v.empty?
@@ -157,8 +157,10 @@ class RegexesController < ApplicationController
                 @regex.save
                 flash[:notice] = "#{@regex.title} was successfully created."
                 # before redirecting to homepage, if we have a new tag, add that to the session to show. (If no session, do not need to add.)
-                if (!session[:tags].nil? & !params[:regex][:tag].nil? & !session[:tags].include?(params[:regex][:tag]))
-                    session[:tags].push(params[:regex][:tag])
+                if ( !session[:tags].nil? & !params[:regex][:tag].nil? & !session[:tags].nil?)
+                    if !session[:tags].include?(params[:regex][:tag])
+                        session[:tags].push(params[:regex][:tag])
+                    end
                     # puts session[:tags]
                 end
                 redirect_to regexes_path and return
