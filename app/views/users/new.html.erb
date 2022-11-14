@@ -1,13 +1,27 @@
-<h1>Register</h1>
-<form action="/users" method="post">
-    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+<%= form_for @user do |f|%>
+    <%=f.label :username, :class => 'col-form-label' %>
+    <%=f.text_field :username, :class => 'form-control' %>
 
-    <label for="email">Email</label>
-    <input type="email" id="email" name="user[email]" value="<%= @user.email %>" />
+    <%=f.label :password, :class => 'col-form-label' %>
+    <%=f.password_field :password, :class => 'form-control' %>
+
+    <%=f.label :password_confirmation, :class => 'col-form-label' %>
+    <%=f.password_field :password_confirmation, :class => 'form-control' %><br>
+    Already have an account? <%= link_to 'Log in', login_path %> here! <br><br>
+    <%= f.submit "Create account", :class => 'btn btn-success'%>
     
-    <label for="password">Password</label>
-    <input type="password" id="password" name="user[password]" />
+<% end %>
 
-    <input type="submit" value="Register">
-</form>
+<%# <h1>Register</h1> %>
+<%# <form action="/users" method="post"> %>
+    <%# <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> %>
+
+    <%# <label for="email">Email</label> %>
+    <%# <input type="email" id="email" name="user[email]" value="<%= @user.email %>" /> %>
+    
+    <%# <label for="password">Password</label> %>
+    <%# <input type="password" id="password" name="user[password]" /> %>
+
+    <%# <input type="submit" value="Register"> %>
+<%# </form> %>
   

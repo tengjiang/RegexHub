@@ -31,7 +31,10 @@ ActiveRecord::Schema.define(version: 20221108060031) do
     t.string   "description"
     t.string   "tag"
     t.datetime "created_at",  null: false
+    t.integer  "user_id"
   end
+
+  add_index "regexes", ["user_id"], name: "index_regexes_on_user_id"
 
   create_table "testcases", force: :cascade do |t|
     t.integer  "regex_id"
@@ -44,10 +47,10 @@ ActiveRecord::Schema.define(version: 20221108060031) do
   add_index "testcases", ["regex_id"], name: "index_testcases_on_regex_id"
 
   create_table "users", force: :cascade do |t|
-    t.string   "email"
-    t.string   "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "username"
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end

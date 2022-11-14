@@ -82,5 +82,5 @@ log
 /lib/tasks/
 /vendor/bundle
 
-.rake_tasks~
-.DS_Store
+/.rake_tasks~
+/.DS_Store

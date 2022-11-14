@@ -26,12 +26,16 @@ class RegexesController < ApplicationController
         if params[:commit] == "Add to testcase"
             if @validity == 'No input.'
                 #
-            elsif @validity == 'No match!'
-                flash[:notice] = "Testcase successfully added!"
-                Testcase.create(regex_id:@regex.id,content:params[:text][:content],match:'false')
-            elsif @validity == 'Matches!'
-                flash[:notice] = "Testcase successfully added!"
-                Testcase.create(regex_id:@regex.id,content:params[:text][:content],match:'true')
+            elsif Testcase.where(regex_id:@regex.id,content:params[:text][:content]).empty?
+                if @validity == 'No match!'
+                    flash[:notice] = "Testcase successfully added!"
+                    Testcase.create(regex_id:@regex.id,content:params[:text][:content],match:'false')
+                elsif @validity == 'Matches!'
+                    flash[:notice] = "Testcase successfully added!"
+                    Testcase.create(regex_id:@regex.id,content:params[:text][:content],match:'true')
+                end
+            else
+                flash[:notice] = "Testcase already exist!"
             end
             render :action => 'show'
 
@@ -157,8 +161,10 @@ class RegexesController < ApplicationController
                 @regex.save
                 flash[:notice] = "#{@regex.title} was successfully created."
                 # before redirecting to homepage, if we have a new tag, add that to the session to show. (If no session, do not need to add.)
-                if (!session[:tags].nil? & !params[:regex][:tag].nil? & !session[:tags].include?(params[:regex][:tag]))
-                    session[:tags].push(params[:regex][:tag])
+                if ( !session[:tags].nil? & !params[:regex][:tag].nil? & !session[:tags].nil?)
+                    if !session[:tags].include?(params[:regex][:tag])
+                        session[:tags].push(params[:regex][:tag])
+                    end
                     # puts session[:tags]
                 end
                 redirect_to regexes_path and return
