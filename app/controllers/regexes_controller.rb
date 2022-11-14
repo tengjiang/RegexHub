@@ -26,12 +26,16 @@ class RegexesController < ApplicationController
         if params[:commit] == "Add to testcase"
             if @validity == 'No input.'
                 #
-            elsif @validity == 'No match!'
-                flash[:notice] = "Testcase successfully added!"
-                Testcase.create(regex_id:@regex.id,content:params[:text][:content],match:'false')
-            elsif @validity == 'Matches!'
-                flash[:notice] = "Testcase successfully added!"
-                Testcase.create(regex_id:@regex.id,content:params[:text][:content],match:'true')
+            elsif Testcase.where(regex_id:@regex.id,content:params[:text][:content]).empty?
+                if @validity == 'No match!'
+                    flash[:notice] = "Testcase successfully added!"
+                    Testcase.create(regex_id:@regex.id,content:params[:text][:content],match:'false')
+                elsif @validity == 'Matches!'
+                    flash[:notice] = "Testcase successfully added!"
+                    Testcase.create(regex_id:@regex.id,content:params[:text][:content],match:'true')
+                end
+            else
+                flash[:notice] = "Testcase already exist!"
             end
             render :action => 'show'
 
