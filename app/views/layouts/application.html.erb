@@ -11,7 +11,16 @@
   <body>
     <%# These classes come from the Bootstrap CSS framework. Could also be bg-dark %>
     <nav class="navbar navbar-expand-lg bg-success text-white mb-3">
-      <h1 class="title">RegexHub</h1>
+      <h1 class="title"><%= link_to 'RegexHub',regexes_path, class: 'css_class', style: 'color:#FFFFFF' %></h1>
+      <ul>
+      <% if !session[:user_id].nil? %>
+        <li><span><%= 'Welcome, dear %d' % [User.find_by_id(session[:user_id])[:username]] %></span>
+        <li><%= link_to 'Log Out', logout_path, class: 'css_class', style: 'color:#FFFFFF' %></li>
+      <% else %>
+        <li><%= link_to 'Sign Up', new_user_path, class: 'css_class', style: 'color:#FFFFFF' %></li>
+        <li><%= link_to 'Log In', login_path, class: 'css_class', style: 'color:#FFFFFF' %></li>
+      <% end %>
+      </ul>
     </nav>
     <div class="container">
       <%# Render "flash" messages in our application. This loads _flash.erb %>
