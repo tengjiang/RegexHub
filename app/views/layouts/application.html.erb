@@ -13,8 +13,8 @@
     <nav class="navbar navbar-expand-lg bg-success text-white mb-3">
       <h1 class="title"><%= link_to 'RegexHub',regexes_path, class: 'css_class', style: 'color:#FFFFFF' %></h1>
       <ul>
-      <% if !session[:user_id].nil? %>
-        <li><span><%= 'Welcome, dear %s' % [User.find_by_id(session[:user_id])[:username]] %></span>
+      <% if (session[:user_id].nil?? false : !User.find_by_id(session[:user_id]).nil?) %>
+        <li><span><%= link_to 'Welcome, dear %s' % [User.find_by_id(session[:user_id])[:username]],user_path(session[:user_id])  %></span>
         <li><%= link_to 'Log Out', logout_path, class: 'css_class', style: 'color:#FFFFFF' %></li>
       <% else %>
         <li><%= link_to 'Sign Up', new_user_path, class: 'css_class', style: 'color:#FFFFFF' %></li>

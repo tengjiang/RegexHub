@@ -9,8 +9,13 @@ class UsersController < ApplicationController
 
     def create
         puts user_params
+        puts params
+        # puts 'aaaaaaaaa'
         @user = User.new(user_params)
-        if @user.save
+        if params[:user][:password]!=params[:user][:password_confirmation]
+            flash[:notice] = "Password does not match!"
+            render :new
+        elsif @user.save
             session[:user_id] = @user.id
             redirect_to regexes_path
         else
@@ -19,10 +24,10 @@ class UsersController < ApplicationController
         end
     end
 
-    # def show
-    #     @user = User.find(params[:id])
-    #     @regexes = Regexes.where(:regex_id => params[:id])
-    # end
+    def show
+        @user = User.find(params[:id])
+        @regexes = Regex.where(:user_id => params[:id])
+    end
 
     private
     def user_params

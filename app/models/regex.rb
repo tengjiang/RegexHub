@@ -36,7 +36,7 @@ class Regex < ActiveRecord::Base
     # end
 
     def self.all_tags
-      self.select(:tag).map(&:tag).uniq
+      all_tags = self.select(:tag).map(&:tag).uniq.reject(&:empty?)
     end
 
     # def self.with_tags(tag)
