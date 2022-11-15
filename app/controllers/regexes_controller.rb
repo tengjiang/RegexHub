@@ -69,12 +69,12 @@ class RegexesController < ApplicationController
         redirect_to regexes_path(:sort => session[:sort], :tags => r,:text=>params[:text])
       else
         #p "t4"
-        if params[:tags].nil?
-          @tags_to_show = session[:tags]
-        else
-          p params[:tags]
-          @tags_to_show = params[:tags].keys
-        end
+        # if params[:tags].nil?
+        #   @tags_to_show = session[:tags]
+        # else
+        p params[:tags]
+        @tags_to_show = params[:tags].keys
+        #end
       end
 
       #@sort = params[:sort] || session[:sort]

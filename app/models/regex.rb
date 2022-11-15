@@ -39,12 +39,16 @@ class Regex < ActiveRecord::Base
       self.select(:tag).map(&:tag).uniq
     end
 
+    # def self.with_tags(tag)
+    #   if tag.nil?
+    #     return self.where(tag: self.all_tags)
+    #   else
+    #     return self.where(tag: tag)
+    #   end
+    # end
+
     def self.with_tags(tag)
-      if tag.nil?
-        return self.where(tag: self.all_tags)
-      else
-        return self.where(tag: tag)
-      end
+      return self.where(tag: tag)
     end
 
 end
