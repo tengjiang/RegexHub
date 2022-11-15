@@ -37,6 +37,12 @@ Scenario: Check if Sign Up page is loaded properly
     And I go to the Sign Up page
     And I fill in "Username" with "TestUsername"
     And I fill in "Password" with "Test123"
+    And I fill in "Password confirmation" with "Test1234"
+    And I press "Create account"
+    Then I should see "Password does not match!"
+    And I go to the Sign Up page
+    And I fill in "Username" with "TestUsername"
+    And I fill in "Password" with "Test123"
     And I fill in "Password confirmation" with "Test123"
     And I press "Create account"
     Then I should see "Username already taken!"
@@ -53,3 +59,5 @@ Scenario: Check if Sign Up page is loaded properly
     And I fill in "Password" with "Test123"
     And I press "Log in"
     Then I should see "Welcome, dear TestUsername"
+    And I follow "Welcome, dear TestUsername"
+    Then I should see "These are the regexes that you have uploaded."
