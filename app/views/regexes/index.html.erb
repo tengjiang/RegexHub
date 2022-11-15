@@ -44,9 +44,9 @@
         </td>
         <td>
           <%= form_tag regexes_path(@text), :method => :get do %>
-          <%= label :text, idx+1 ,'textbox', :class => 'col-form-label hidden' %>
+          <%= label :text, idx+1 ,"textbox #{(idx+1)}", :class => 'col-form-label hidden' %>
           <%= text_field :text, idx+1 , :placeholder => 'Type something!',:value => @regex_input[(idx+1).to_s],:class => 'form-control',:class =>'col-6'%>
-          <%= submit_tag 'Check', :class => 'btn btn-success' %>
+          <%= submit_tag "Check it!",:id => "Check #{(idx+1)}",  :class => 'btn btn-success' %>
           <%= @validity[(idx+1).to_s] %>
           <% end %>
         </td>

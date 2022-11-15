@@ -1,5 +1,5 @@
-Feature: Test if index page is loaded properly
-    As a user, I want the index page loaded properly
+Feature: Test if user login & sign up page is loaded properly
+    As a user, I want the user functionality to work properly
 
 Background: All the regexes and testcases exist
 
@@ -24,23 +24,32 @@ Background: All the regexes and testcases exist
     | 5         | true  | 345           |
     | 5         | false | asda          |
 
-Scenario: Check if index page is loaded properly
-    When I am on the homepage
-    Then I should see "Time in 24-hour format"
-    And I should see "Username"
-    And I should see "Email"
-    And I should see "Negative Integer"
-    And I should see "Integer"
-    And I fill in "textbox 1" with "1234"
-    And I press "Check 1"
-    Then I should see "No match!"
-    And I fill in "textbox 1" with "12:34"
-    And I press "Check 1"
-    Then I should see "Matches!"
-
-Scenario: Check if the "Add a new regular expression" button works properly
-    When I am on the homepage
-    And I go to the Add new regular expression page
-    Then I should see "Create New regex"
-    And I follow "Cancel"
-    Then I should see "all of our regexes"
+Scenario: Check if Sign Up page is loaded properly
+    When I go to the Sign Up page
+    And I fill in "Username" with "TestUsername"
+    And I fill in "Password" with "Test123"
+    And I fill in "Password confirmation" with "Test123"
+    And I press "Create account"
+    Then I should see "Welcome, dear TestUsername"
+    And I go to the Log Out page
+    Then I should see "Sign Up"
+    And I should not see "Welcome, dear TestUsername"
+    And I go to the Sign Up page
+    And I fill in "Username" with "TestUsername"
+    And I fill in "Password" with "Test123"
+    And I fill in "Password confirmation" with "Test123"
+    And I press "Create account"
+    Then I should see "Username already taken!"
+    And I go to the Log In page
+    And I fill in "Username" with "TestUsername1"
+    And I fill in "Password" with "Test1234"
+    And I press "Log in"
+    Then I should see "User does not exist."
+    And I fill in "Username" with "TestUsername"
+    And I fill in "Password" with "Test1234"
+    And I press "Log in"
+    Then I should see "Wrong password!"
+    And I fill in "Username" with "TestUsername"
+    And I fill in "Password" with "Test123"
+    And I press "Log in"
+    Then I should see "Welcome, dear TestUsername"
