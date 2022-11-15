@@ -110,6 +110,23 @@ Scenario: Add a new regex and save
     And I should see "Integer"
     And I should see "Positive number"
 
+Scenario: Add a new regex with new tag and save
+    When I go to the Add new regular expression page
+    And I fill in "Name" with "Positive number 1"
+    And I fill in "Expression" with "/^\d*\.?\d+$/"
+    And I fill in "Description" with "Should match all positive numbers"
+    And I fill in "Tag" with "test_new_tag"
+    And I fill in "testcase 1" with "qwadasd"
+    And I choose "testcase 1 false"
+    And I press "Save Changes"
+    Then I am on the homepage
+    And I should see "Time in 24-hour format"
+    And I should see "Username"
+    And I should see "Email"
+    And I should see "Negative Integer"
+    And I should see "Integer"
+    And I should see "Positive number 1"
+
 Scenario: Add a new regex and not save
     When I go to the Add new regular expression page
     And I fill in "Name" with "Positive number"
