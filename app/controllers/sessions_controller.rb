@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
         flash[:notice] = message
         redirect_to login_path
     end
+    
     def destroy
         session[:user_id] = nil
         session[:tags] = nil

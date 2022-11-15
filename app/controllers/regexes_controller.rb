@@ -187,10 +187,12 @@ class RegexesController < ApplicationController
 
     def destroy
         @regex = Regex.find(params[:id])
+=begin
         if (@regex.user_id != session[:user_id])
             flash[:notice] = "Please log in as the user who created this regex to delete it."
             redirect_to login_path and return
         end
+=end
         if (@regex.user_id == session[:user_id])
             @regex.destroy
             flash[:notice] = "Regex '#{@regex.title}' deleted."
