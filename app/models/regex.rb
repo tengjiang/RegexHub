@@ -43,7 +43,7 @@ class Regex < ActiveRecord::Base
     #   if tag.nil?
     #     return self.where(tag: self.all_tags)
     #   else
-    #     return self.where(tag: tag)
+    #     return self.where(tag: tag.reject(&:empty?))
     #   end
     # end
 
