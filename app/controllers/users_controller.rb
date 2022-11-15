@@ -3,9 +3,9 @@ class UsersController < ApplicationController
         @user = User.new
     end
     
-    def index # probably should not be accessed.
-        @users = User.all
-    end
+    # def index # probably should not be accessed.
+    #     @users = User.all
+    # end
 
     def create
         puts user_params
@@ -19,10 +19,10 @@ class UsersController < ApplicationController
         end
     end
 
-    def show
-        @user = User.find(params[:id])
-        @regexes = Regexes.where(:regex_id => params[:id])
-    end
+    # def show
+    #     @user = User.find(params[:id])
+    #     @regexes = Regexes.where(:regex_id => params[:id])
+    # end
 
     private
     def user_params

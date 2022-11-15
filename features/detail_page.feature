@@ -26,16 +26,12 @@ Background: All the regexes and testcases exist
 
 Scenario: Check if the test case is loaded properly
     When I go to the details page for "Time in 24-hour format"
-
     Then I should see "23:59"
-
     And I should see "25:64"
 
 Scenario: Check try it out function with empty input
     When I go to the details page for "Time in 24-hour format"
-
     And I press "Check"
-
     Then I should see "No input"
 
 Scenario: Check try it out function with a match input
@@ -44,7 +40,6 @@ Scenario: Check try it out function with a match input
     And I fill in "textbox" with "12:34"
 
     And I press "Check"
-
     Then I should see "Matches!"
 
 Scenario: Check try it out function with a mismatch input
@@ -53,15 +48,18 @@ Scenario: Check try it out function with a mismatch input
     And I fill in "textbox" with "25:87"
 
     And I press "Check"
-
     Then I should see "No match!"
 
 Scenario: Add a new empty test case
     When I go to the details page for "Time in 24-hour format"
-
     And I press "Add to testcase"
-
     Then I should not see "Testcase successfully added!"
+
+Scenario: Add an existing testcase
+    When I go to the details page for "Time in 24-hour format"
+    And I fill in "textbox" with "23:59"
+    And I press "Add to testcase"
+    Then I should see "Testcase already exist!"
 
 Scenario: Add a new true test case
     When I go to the details page for "Time in 24-hour format"
@@ -69,9 +67,7 @@ Scenario: Add a new true test case
     And I fill in "textbox" with "12:34"
 
     And I press "Add to testcase"
-
     Then I should see "Testcase successfully added!"
-
     And I should see "true"
 
 Scenario: Add a new false test case
@@ -80,23 +76,17 @@ Scenario: Add a new false test case
     And I fill in "textbox" with "12abc34"
 
     And I press "Add to testcase"
-
     Then I should see "Testcase successfully added!"
-
     And I should see "false"
 
 Scenario: Delete a regex
     When I go to the details page for "Time in 24-hour format"
-
     And I follow "Delete"
-
     Then I should be on the homepage
-
     And I should see "Regex 'Time in 24-hour format' deleted."
 
 Scenario: Return to homepage
     When I go to the details page for "Time in 24-hour format"
-
     And I follow "Back to homepage"
-
     Then I should be on the homepage
+    
