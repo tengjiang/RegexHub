@@ -34,7 +34,21 @@ Scenario: Check if Sign Up page is loaded properly
     And I go to the Log Out page
     Then I should see "Sign Up"
     And I should not see "Welcome, dear TestUsername"
+    And I go to the Sign Up page
+    And I fill in "Username" with "TestUsername"
+    And I fill in "Password" with "Test123"
+    And I fill in "Password confirmation" with "Test123"
+    And I press "Create account"
+    Then I should see "Username already taken!"
     And I go to the Log In page
+    And I fill in "Username" with "TestUsername1"
+    And I fill in "Password" with "Test1234"
+    And I press "Log in"
+    Then I should see "User does not exist."
+    And I fill in "Username" with "TestUsername"
+    And I fill in "Password" with "Test1234"
+    And I press "Log in"
+    Then I should see "Wrong password!"
     And I fill in "Username" with "TestUsername"
     And I fill in "Password" with "Test123"
     And I press "Log in"

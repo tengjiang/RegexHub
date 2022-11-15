@@ -55,6 +55,12 @@ Scenario: Add a new empty test case
     And I press "Add to testcase"
     Then I should not see "Testcase successfully added!"
 
+Scenario: Add an existing testcase
+    When I go to the details page for "Time in 24-hour format"
+    And I fill in "textbox" with "23:59"
+    And I press "Add to testcase"
+    Then I should see "Testcase already exist!"
+
 Scenario: Add a new true test case
     When I go to the details page for "Time in 24-hour format"
 
