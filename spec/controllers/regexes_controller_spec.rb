@@ -21,6 +21,18 @@ RSpec.describe RegexesController, type: :controller do
       get :index, {:text => {'1': 'test1'}, :commit => 'Check'}
       expect(response).to redirect_to("/regexes?tags%5Bother%5D=1&text%5B1%5D=test1")
     end
+    it "refreshes the index with no tags" do
+      allow(Regex).to receive(:create)
+      Regex.create! regex_valid_attributes
+      get :index, {:text => {'1': 'test1'}, :commit => 'Refresh'}
+      expect(response).to redirect_to("/regexes?tags%5Bother%5D=1&text%5B1%5D=test1")
+    end
+    it "successful show the checked category" do
+      allow(Regex).to receive(:create)
+      Regex.create! regex_valid_attributes
+      get :index, {:text => {'1': 'test1'}, :commit => 'Refresh', :tags=>{'test1':1}}
+      #expect(response).to redirect_to("/regexes?tags%5Bother%5D=1&text%5B1%5D=test1")
+    end
   end
 
   context '#new' do
@@ -91,6 +103,16 @@ RSpec.describe RegexesController, type: :controller do
     it 'does not allow wrong testcases' do
       get :create, {:regex=>{:title=>"test", :expression=>"test", :tag =>"test",:testcases_attributes=>{'0'=>{:content=>'test',:match=>'false'}}}}
       expect(response).to render_template("new")
+    end
+    it 'successful add testcases with no tag' do
+      get :create, {:regex=>{:title=>"test", :expression=>"test", :tag =>""}}
+      expect(response).to redirect_to @regexes_path
+    end
+    it 'successful add testcases with tag' do
+      session[:tags] = ["test3"]
+      get :create, {:regex=>{:title=>"test", :expression=>"test", :tag =>"test1"}}
+      # params[:regex][:tag] = "test1"
+      expect(response).to redirect_to @regexes_path
     end
   end
 
