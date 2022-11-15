@@ -41,6 +41,4 @@ Scenario: Check if index page is loaded properly
 Scenario: Check if the "Add a new regular expression" button works properly
     When I am on the homepage
     And I go to the Add new regular expression page
-    Then I should see "Create New regex"
-    And I follow "Cancel"
-    Then I should see "all of our regexes"
+    Then I should see "You have to log in first to submit a regex!"
