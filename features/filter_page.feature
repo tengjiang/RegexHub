@@ -30,3 +30,8 @@ Scenario: all tags selected
   When I check the following tags: time, username, email, number
   And I press "Refresh"
   Then I should see all the regexes
+
+Scenario: all tags unselected
+  When I uncheck the following tags: time, username, email, number
+  And I press "Refresh"
+  Then I should see all the regexes

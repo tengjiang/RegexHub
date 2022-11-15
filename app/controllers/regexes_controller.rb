@@ -77,17 +77,18 @@ class RegexesController < ApplicationController
         end
       end
 
-      @sort = params[:sort] || session[:sort]
-      case @sort
-      when 'name'
-        ordering = {:name => :asc}
-      when 'uploaded_time'
-        ordering = {:uploaded_time => :asc}
-      end
+      #@sort = params[:sort] || session[:sort]
+      # case @sort
+      # when 'name'
+      #   ordering = {:name => :asc}
+      # when 'uploaded_time'
+      #   ordering = {:uploaded_time => :asc}
+      # end
 
-      @regexes = Regex.with_tags(@tags_to_show).order(ordering)
+      #@regexes = Regex.with_tags(@tags_to_show).order(ordering)
+      @regexes = Regex.with_tags(@tags_to_show)
 
-      session[:sort]    = @sort
+      #session[:sort]    = @sort
       session[:tags] = @tags_to_show
       @tags = @tags_to_show
 
