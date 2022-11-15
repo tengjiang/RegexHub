@@ -48,7 +48,7 @@ class Regex < ActiveRecord::Base
     # end
 
     def self.with_tags(tag)
-      return self.where(tag: tag)
+      return self.where(tag: tag.reject(&:empty?))
     end
 
 end
