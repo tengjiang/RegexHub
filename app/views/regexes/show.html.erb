@@ -8,8 +8,11 @@
 <ul>
 <h2>
 
-<%# <% like = current_user.likes.find_by(regex: @regex) %>
-<% like = Like.find_by(regex: @regex) %>
+<div class="row">
+<%= @regex.likes.count %> likes 
+
+<% like = (current_user ? current_user.likes.find_by(regex: @regex): nil ) %>
+<%# <% like = Like.find_by(regex: @regex) %> 
 <% if like.nil? %> 
   <%# <%= button_to "like", like_path, params: { like: { regex_id: @regex.id}},method: :post %> 
   <form action="/likes" method="post">
@@ -22,9 +25,11 @@
   <form action="<%= like_path(like) %>", method="post"> 
     <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
     <input type="hidden" name="_method" value="DELETE"> 
-    <input type="submit" value="unlike">
+    <input type="submit" value="Unlike">
   </form>
 <% end %>
+
+</div>
 
 </h2>
 </ul>
