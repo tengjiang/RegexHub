@@ -28,22 +28,24 @@ class Regex < ActiveRecord::Base
 
 # functions for filter
     def self.tags
-      pluck(:tag).uniq
+      pluck(:tag).uniq.reject(&:empty?)
     end
 
     def self.find_all_by_tags(tags, ordering)
+      tags = tags.push(nil)
+      puts tags
       self.where(tag: tags).order(ordering)
     end
 
     def self.all_tags
-      self.select(:tag).map(&:tag).uniq
+      all_tags = self.select(:tag).map(&:tag).uniq.reject(&:empty?)
     end
 
     def self.with_tags(tag)
       if tag.nil?
-        return self.where(tag: self.all_tags)
+        return self.where(tag: self.all_tags.reject(&:empty?))
       else
-        return self.where(tag: tag)
+        return self.where(tag: tag.reject(&:empty?))
       end
     end
 

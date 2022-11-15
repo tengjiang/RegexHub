@@ -1,0 +1,44 @@
+<h2>Welcome, dear <em><%= @user.username %></em></h2>
+
+
+<p id='display regexes'>
+<h4>These are the regexes that you have uploaded.</h4>
+<table class="table table-striped col-md-12" id="regexes">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Expression</th>
+      <th>Tag</th>
+      <th>Description</th>
+      <th>Uploaded time</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @regexes.each_with_index do |regex,idx| %>
+      <tr>
+        <td>
+          <%= link_to regex.title, regex_path(regex) %>
+        </td>
+        <td>
+          <%= regex.expression %>
+        </td>
+        <td>
+          <%= regex.tag %>
+        </td>
+        <td>
+          <%= regex.description %>
+        </td>
+        <td>
+        <%= regex.created_at %>
+        </td>
+        <td>
+        <%=link_to 'Delete', regex_path(regex), 'data-method' => 'delete', :class => 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to 'Add new regular expression', new_regex_path, :class => 'btn btn-success' %>
+
+</p>
