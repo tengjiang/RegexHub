@@ -69,25 +69,26 @@ class RegexesController < ApplicationController
         redirect_to regexes_path(:sort => session[:sort], :tags => r,:text=>params[:text])
       else
         #p "t4"
-        if params[:tags].nil?
-          @tags_to_show = session[:tags]
-        else
-          p params[:tags]
-          @tags_to_show = params[:tags].keys
-        end
+        # if params[:tags].nil?
+        #   @tags_to_show = session[:tags]
+        # else
+        p params[:tags]
+        @tags_to_show = params[:tags].keys
+        #end
       end
 
-      @sort = params[:sort] || session[:sort]
-      case @sort
-        when 'name'
-            ordering = {:name => :asc}
-        when 'uploaded_time'
-            ordering = {:uploaded_time => :asc}
-      end
+      #@sort = params[:sort] || session[:sort]
+      # case @sort
+      # when 'name'
+      #   ordering = {:name => :asc}
+      # when 'uploaded_time'
+      #   ordering = {:uploaded_time => :asc}
+      # end
 
-      @regexes = Regex.with_tags(@tags_to_show).order(ordering)
+      #@regexes = Regex.with_tags(@tags_to_show).order(ordering)
+      @regexes = Regex.with_tags(@tags_to_show)
 
-      session[:sort]    = @sort
+      #session[:sort]    = @sort
       session[:tags] = @tags_to_show
       @tags = @tags_to_show
 
@@ -177,7 +178,7 @@ class RegexesController < ApplicationController
                     # puts session[:tags]
                 end
                 redirect_to regexes_path and return
-                
+
             end
         end
         puts params
