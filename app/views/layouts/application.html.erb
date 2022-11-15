@@ -14,7 +14,7 @@
       <h1 class="title"><%= link_to 'RegexHub',regexes_path, class: 'css_class', style: 'color:#FFFFFF' %></h1>
       <ul>
       <% if !session[:user_id].nil? %>
-        <li><span><%= 'Welcome, dear %d' % [User.find_by_id(session[:user_id])[:username]] %></span>
+        <li><span><%= 'Welcome, dear %s' % [User.find_by_id(session[:user_id])[:username]] %></span>
         <li><%= link_to 'Log Out', logout_path, class: 'css_class', style: 'color:#FFFFFF' %></li>
       <% else %>
         <li><%= link_to 'Sign Up', new_user_path, class: 'css_class', style: 'color:#FFFFFF' %></li>
