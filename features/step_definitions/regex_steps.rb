@@ -31,3 +31,7 @@ Then /I should see all the regex/ do
     end
     # pending "Fill in this step in regex_steps.rb"
 end
+
+Then /(.*) seed regexes should exist/ do | n_seeds |
+  Regex.count.should be n_seeds.to_i
+end
