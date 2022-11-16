@@ -3,8 +3,8 @@ class RegexesController < ApplicationController
     def index
         @regexes = Regex.all
         @regex_input = []
-        
-        @regex_input = params[:text].nil?? Hash.new: params[:text] 
+
+        @regex_input = params[:text].nil?? Hash.new: params[:text]
         @validity = Hash.new
         @regex_input.each do |k,v|
             if !v.empty?
@@ -15,7 +15,7 @@ class RegexesController < ApplicationController
         end
     end
 =end
-  
+
     def show
         id = params[:id] # retrieve regex ID from URI route
         @regex = Regex.find(id) # look up regex by unique ID
@@ -55,45 +55,46 @@ class RegexesController < ApplicationController
       end
 
       if params[:tags].nil? and params[:sort].nil?
-        p "t1"
+        #p "t1"
         if not session[:tags].nil?
-          p "t2"
+          #p "t2"
           @tags_to_show = session[:tags]
         else
-          p "t3"
+          #p "t3"
           @tags_to_show = @all_tags
           session[:tags] = @tags_to_show
         end
 
-        r = Hash[ *session[:tags].collect { |v| [ v, 1 ] }.flatten ]
+        r = Hash[ *session[:tags].reject(&:empty?).collect { |v| [ v, 1 ] }.flatten ]
         redirect_to regexes_path(:sort => session[:sort], :tags => r,:text=>params[:text])
       else
-        p "t4"
-        if params[:tags].nil?
-          @tags_to_show = session[:tags]
-        else
-          p params[:tags]
-          @tags_to_show = params[:tags].keys
-        end
+        #p "t4"
+        # if params[:tags].nil?
+        #   @tags_to_show = session[:tags]
+        # else
+        p params[:tags]
+        @tags_to_show = params[:tags].keys
+        #end
       end
 
-      @sort = params[:sort] || session[:sort]
-      case @sort
-      when 'name'
-        ordering = {:name => :asc}
-      when 'uploaded_time'
-        ordering = {:uploaded_time => :asc}
-      end
+      #@sort = params[:sort] || session[:sort]
+      # case @sort
+      # when 'name'
+      #   ordering = {:name => :asc}
+      # when 'uploaded_time'
+      #   ordering = {:uploaded_time => :asc}
+      # end
 
-      @regexes = Regex.with_tags(@tags_to_show).order(ordering)
+      #@regexes = Regex.with_tags(@tags_to_show).order(ordering)
+      @regexes = Regex.with_tags(@tags_to_show)
 
-      session[:sort]    = @sort
+      #session[:sort]    = @sort
       session[:tags] = @tags_to_show
       @tags = @tags_to_show
 
       @regex_input = []
-        
-      @regex_input = params[:text].nil?? Hash.new: params[:text] 
+
+      @regex_input = params[:text].nil?? Hash.new: params[:text]
       @validity = Hash.new
       @regex_input.each do |k,v|
       if !v.empty?
@@ -106,6 +107,10 @@ class RegexesController < ApplicationController
     end
 
     def new
+        if session[:user_id].nil? # require login_first
+            flash[:notice] = "You have to log in first to submit a regex!"
+            redirect_to login_path
+        end
         @regex = Regex.new
         @regex.testcases.build
         # @regex.testcases.build
@@ -115,9 +120,15 @@ class RegexesController < ApplicationController
     def create
 
         # @regex = Regex.create!(regex_params)
-        @regex = Regex.new(regex_params)
+        # uts regex_params
+        if regex_params["tag"].empty?
+            # puts "empty!!!!!!"
+            params[:regex][:tag] = 'other'
+            # puts regex_params
+        end
+        # puts regex_params
+        @regex = Regex.new(regex_params.merge({user_id:session[:user_id]}))
         if params[:add_testcase]
-            # add empty ingredient associated with @recipe
             @regex.testcases.build
         elsif params[:remove_testcase]
             # nested model that have _destroy attribute = 1 automatically deleted by rails
@@ -132,7 +143,6 @@ class RegexesController < ApplicationController
             #puts 'error message here'
             #    flash[:notice] = @regex.errors.messages.map { |k,v| v }.join('<br>').html_safe
             # params[:remove_testcase]
-
             testcase_error_flag = false
             error_msg = []
             if !params[:regex][:testcases_attributes].nil?
@@ -162,12 +172,13 @@ class RegexesController < ApplicationController
                 flash[:notice] = "#{@regex.title} was successfully created."
                 # before redirecting to homepage, if we have a new tag, add that to the session to show. (If no session, do not need to add.)
                 if ( !session[:tags].nil? & !params[:regex][:tag].nil? & !session[:tags].nil?)
-                    if !session[:tags].include?(params[:regex][:tag])
+                    if !session[:tags].include?(params[:regex][:tag]) and !params[:regex][:tag].empty?
                         session[:tags].push(params[:regex][:tag])
                     end
                     # puts session[:tags]
                 end
                 redirect_to regexes_path and return
+
             end
         end
         puts params
@@ -176,8 +187,16 @@ class RegexesController < ApplicationController
 
     def destroy
         @regex = Regex.find(params[:id])
-        @regex.destroy
-        flash[:notice] = "Regex '#{@regex.title}' deleted."
+=begin
+        if (@regex.user_id != session[:user_id])
+            flash[:notice] = "Please log in as the user who created this regex to delete it."
+            redirect_to login_path and return
+        end
+=end
+        if (@regex.user_id == session[:user_id])
+            @regex.destroy
+            flash[:notice] = "Regex '#{@regex.title}' deleted."
+        end
         redirect_to regexes_path
     end
 

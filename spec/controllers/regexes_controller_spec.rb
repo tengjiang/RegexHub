@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe RegexesController, type: :controller do
   def regex_valid_attributes
-    {:title => 'test_regex', :expression => 'test_expression'}
+    {:title => 'test_regex', :expression => 'test_expression',:tag => 'other', :user_id =>1}
   end
   
   def test_case_valid_atributes
@@ -12,14 +12,26 @@ RSpec.describe RegexesController, type: :controller do
   context '#index' do
     it "renders the index template" do
       get :index
-      expect(response).to render_template("index")
+      expect(response).to redirect_to("/regexes?")
     end
     it "does not react to text with no input" do
       allow(Regex).to receive(:create)
       Regex.create! regex_valid_attributes
       Regex.create! regex_valid_attributes
       get :index, {:text => {'1': 'test1'}, :commit => 'Check'}
-      expect(response).to render_template("index")
+      expect(response).to redirect_to("/regexes?tags%5Bother%5D=1&text%5B1%5D=test1")
+    end
+    it "refreshes the index with no tags" do
+      allow(Regex).to receive(:create)
+      Regex.create! regex_valid_attributes
+      get :index, {:text => {'1': 'test1'}, :commit => 'Refresh'}
+      expect(response).to redirect_to("/regexes?tags%5Bother%5D=1&text%5B1%5D=test1")
+    end
+    it "successful show the checked category" do
+      allow(Regex).to receive(:create)
+      Regex.create! regex_valid_attributes
+      get :index, {:text => {'1': 'test1'}, :commit => 'Refresh', :tags=>{'test1':1}}
+      #expect(response).to redirect_to("/regexes?tags%5Bother%5D=1&text%5B1%5D=test1")
     end
   end
 
@@ -65,25 +77,42 @@ RSpec.describe RegexesController, type: :controller do
         allow(Testcase).to receive(:create).and_return testcase
 
       end
+      it "does not allow add existed testcases." do
+        regex = Regex.create!({:title => 'test_regex', :expression => 'test_expression', :tag => 'other', :user_id =>1, :testcases_attributes=>{'0'=>{:content=>'test_expression',:match=>'true'}}})
+        testcase1 = Testcase.create :regex_id => regex.to_param, :content => 'test_expression', :match => 'true'
+        get :show, {:id => regex.to_param,:text => {'content':'test_expression'}, :commit => "Add to testcase"}
+        expect(Testcase).not_to receive(:create)
+      end
+
     end
   end
 
   context '#create' do
     it 'successful add testcases' do
-      get :create, {:regex=>{:title=>"test", :expression=>"test"},:add_testcase=>"Add testcase"}
+      get :create, {:regex=>{:title=>"test", :expression=>"test", :tag =>"test"},:add_testcase=>"Add testcase"}
       expect(response).to render_template("new")
     end
     it 'successfully deletes testcases' do
-      get :create, {:regex=>{:title=>"test", :expression=>"test"},:remove_testcase=>"Delete select testcases"}
+      get :create, {:regex=>{:title=>"test", :expression=>"test", :tag =>"test"},:remove_testcase=>"Delete select testcases"}
       expect(response).to render_template("new")
     end
     it 'successfully submits' do
-      get :create, {:regex=>{:title=>"test", :expression=>"test"}}
+      get :create, {:regex=>{:title=>"test", :expression=>"test", :tag =>"test"}}
       expect(response).to redirect_to @regexes_path
     end
     it 'does not allow wrong testcases' do
-      get :create, {:regex=>{:title=>"test", :expression=>"test",:testcases_attributes=>{'0'=>{:content=>'test',:match=>'false'}}}}
+      get :create, {:regex=>{:title=>"test", :expression=>"test", :tag =>"test",:testcases_attributes=>{'0'=>{:content=>'test',:match=>'false'}}}}
       expect(response).to render_template("new")
+    end
+    it 'successful add testcases with no tag' do
+      get :create, {:regex=>{:title=>"test", :expression=>"test", :tag =>""}}
+      expect(response).to redirect_to @regexes_path
+    end
+    it 'successful add testcases with tag' do
+      session[:tags] = ["test3"]
+      get :create, {:regex=>{:title=>"test", :expression=>"test", :tag =>"test1"}}
+      # params[:regex][:tag] = "test1"
+      expect(response).to redirect_to @regexes_path
     end
   end
 
@@ -92,14 +121,16 @@ RSpec.describe RegexesController, type: :controller do
     describe 'regex is destroyed' do
 
       it 'executes the deletion query against the database' do
-        regex = double('regex', :title => "fake regex", :content => "fake content")
+        session[:user_id] = 1
+        regex = double('regex', :title => "fake regex", :content => "fake content", :user_id => 1)
         allow(Regex).to receive(:find).and_return regex
         expect(regex).to receive(:destroy)
         delete :destroy, { id: 1 }
       end
 
       it 'assign the regex to the template' do
-        regex = double('regex', :title => "fake regex", :content => "fake content")
+        session[:user_id] = 1
+        regex = double('regex', :title => "fake regex", :content => "fake content", :user_id => 1)
         allow(Regex).to receive(:find).and_return regex
         expect(regex).to receive(:destroy)
         delete :destroy, { id: 1 }
@@ -107,7 +138,8 @@ RSpec.describe RegexesController, type: :controller do
       end
 
       it 'redirects to the homepage' do
-        regex = double('regex', :title => "fake regex", :content => "fake content")
+        session[:user_id] = 1
+        regex = double('regex', :title => "fake regex", :content => "fake content", :user_id => 1)
         allow(Regex).to receive(:find).and_return regex
         expect(regex).to receive(:destroy)
         delete :destroy, { id: 1 }

@@ -12,7 +12,12 @@ Given /the following testcases exist/ do |testcase_table|
   # pending "Fill in this step in regex_steps.rb"
 end
 
-
+Given /the following users exist/ do |user_table|
+  user_table.hashes.each do |user|
+    User.create user
+  end
+  # pending "Fill in this step in regex_steps.rb"
+end
 
 When /I (un)?check the following tags: (.*)/ do |uncheck, tags|
     tags.split(', ').each do |tag|
@@ -30,4 +35,8 @@ Then /I should see all the regex/ do
         step %{I should see "#{regex.title}"}
     end
     # pending "Fill in this step in regex_steps.rb"
+end
+
+Then /(.*) seed regexes should exist/ do | n_seeds |
+  Regex.count.should be n_seeds.to_i
 end

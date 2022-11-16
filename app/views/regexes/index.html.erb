@@ -2,8 +2,10 @@
 <h2>Welcome! Checkout all of our regexes.</h2>
 
 <p>
-<h5>Please make sure to try clicking into <b>the detailed page of each regex</b> and try the <b>"Add new regular expression"</b> button!</h5>
-<h5>We are only supporting regular expressions for Ruby for iter-1.</h5></p>
+<h5>Try to log in with the username <b>"admin"</b> and password <b>"admin"</b> or register with your own username on the top right!</h5>
+<h5>After logged in, click on the <b>user center</b> up right to see and delete the regexes you uploaded.</h5>
+<h5>Try <b>matching</b> the regex for yourself and make sure to log in before clicking the <b>"Add new regular expression"</b> button!</h5>
+<h5>We are only supporting regular expressions for Ruby for iter-2.</h5></p>
 
 
 <%= form_tag regexes_path, method: :get, enforce_utf8: false, id: 'tags_form' do %>
@@ -44,9 +46,9 @@
         </td>
         <td>
           <%= form_tag regexes_path(@text), :method => :get do %>
-          <%= label :text, idx+1 ,'textbox', :class => 'col-form-label hidden' %>
+          <%= label :text, idx+1 ,"textbox #{(idx+1)}", :class => 'col-form-label hidden' %>
           <%= text_field :text, idx+1 , :placeholder => 'Type something!',:value => @regex_input[(idx+1).to_s],:class => 'form-control',:class =>'col-6'%>
-          <%= submit_tag 'Check', :class => 'btn btn-success' %>
+          <%= submit_tag "Check it!",:id => "Check #{(idx+1)}",  :class => 'btn btn-success' %>
           <%= @validity[(idx+1).to_s] %>
           <% end %>
         </td>

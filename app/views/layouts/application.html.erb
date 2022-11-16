@@ -10,18 +10,22 @@
   </head>
   <body>
     <%# These classes come from the Bootstrap CSS framework. Could also be bg-dark %>
-    <nav class="navbar navbar-expand-lg bg-success text-white mb-3">
-      <h1 class="title"><%= link_to 'RegexHub',regexes_path, class: 'css_class', style: 'color:#FFFFFF' %></h1>
-      <ul>
-      <% if !session[:user_id].nil? %>
-        <li><span><%= 'Welcome, dear %s' % [User.find_by_id(session[:user_id])[:username]] %></span>
-        <li><%= link_to 'Log Out', logout_path, class: 'css_class', style: 'color:#FFFFFF' %></li>
+
+    <nav class="navbar navbar-expand-lg bg-success navbar-light text-white mb-3">
+      <h1 class="title"><%= link_to 'RegexHub',regexes_path, class: ' nav-link css_class', style: 'color:#FFFFFF' %></h1>
+      <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+      <% if (session[:user_id].nil?? false : !User.find_by_id(session[:user_id]).nil?) %>
+        <h5><li class="nav-item active"><span><%= link_to 'User center for %s' % [User.find_by_id(session[:user_id])[:username]],user_path(session[:user_id]),class: 'nav-link css_class' ,style: 'color:#FFA500' %></span></h5>
+        <h5><li class="nav-item"><%= link_to 'Log Out', logout_path, class: 'nav-link  css_class', style: 'color:#FFA500' %></li></h5>
       <% else %>
-        <li><%= link_to 'Sign Up', new_user_path, class: 'css_class', style: 'color:#FFFFFF' %></li>
-        <li><%= link_to 'Log In', login_path, class: 'css_class', style: 'color:#FFFFFF' %></li>
+        <h5><li class="nav-item active"><%= link_to 'Sign Up', new_user_path, class: 'nav-link  css_class', style: 'color:#FFA500' %></li></h5>
+        <h5><li class="nav-item"><%= link_to 'Log In', login_path, class: 'nav-link  css_class', style: 'color:#FFA500' %></li></h5>
       <% end %>
       </ul>
+    </div>
     </nav>
+
     <div class="container">
       <%# Render "flash" messages in our application. This loads _flash.erb %>
       <%= render 'layouts/flash' %>

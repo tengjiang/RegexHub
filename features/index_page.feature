@@ -26,24 +26,19 @@ Background: All the regexes and testcases exist
 
 Scenario: Check if index page is loaded properly
     When I am on the homepage
-
     Then I should see "Time in 24-hour format"
-
     And I should see "Username"
-
     And I should see "Email"
-
     And I should see "Negative Integer"
-
     And I should see "Integer"
+    And I fill in "textbox 1" with "1234"
+    And I press "Check 1"
+    Then I should see "No match!"
+    And I fill in "textbox 1" with "12:34"
+    And I press "Check 1"
+    Then I should see "Matches!"
 
 Scenario: Check if the "Add a new regular expression" button works properly
     When I am on the homepage
-
     And I go to the Add new regular expression page
-
-    Then I should see "Create New regex"
-
-    And I follow "Cancel"
-
-    Then I should see "all of our regexes"
+    Then I should see "You have to log in first to submit a regex!"
