@@ -43,10 +43,10 @@ Scenario: Register a new account and log out
     And I fill in "Password" with "Test123"
     And I fill in "Password confirmation" with "Test123"
     And I press "Create account"
-    Then I should see "Welcome, dear TestUsername"
+    Then I should see "User center for TestUsername"
     And I go to the Log Out page
     Then I should see "Sign Up"
-    And I should not see "Welcome, dear TestUsername"
+    And I should not see "User center for TestUsername"
 
 Scenario: Register a new account, confirm with a password that does not match
     When I go to the Sign Up page
@@ -83,6 +83,6 @@ Scenario: Login and view my regex
     And I fill in "Username" with "admin"
     And I fill in "Password" with "admin"
     And I press "Log in"
-    Then I should see "Welcome, dear admin"
-    And I follow "Welcome, dear admin"
+    Then I should see "User center for admin"
+    And I follow "User center for admin"
     Then I should see "These are the regexes that you have uploaded."
