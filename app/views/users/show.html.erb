@@ -42,3 +42,40 @@
 <%= link_to 'Add new regular expression', new_regex_path, :class => 'btn btn-success' %>
 
 </p>
+
+<p id='display likes'>
+<h4>These are the regexes that you have liked. </h4>
+<table class="table table-striped col-md-12" id="likes">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Expression</th>
+      <th>Tag</th>
+      <th>Description</th>
+      <th>Uploaded time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @likes.each do |like| %>
+      <tr>
+        <td>
+          <%= link_to like["title"],regex_path(like)  %>
+        </td>
+        <td>
+          <%= like["expression"]%>
+        </td>
+        <td>
+          <%= like["tag"] %>
+        </td>
+        <td>
+          <%= like["description"] %>
+        </td>
+        <td>
+        <%= like["created_at"] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</p>
