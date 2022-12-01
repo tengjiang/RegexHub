@@ -1,6 +1,41 @@
 <!--  app/views/regexes/show.html.erb -->
+
+<div class="row">
+
+
 <h2>Details about <em><%= @regex.title %></em></h2>
 
+<ul>
+<h6>
+
+<%# <div class="row"> %>
+<%= @regex.likes.count %> likes 
+
+<% like = (current_user ? current_user.likes.find_by(regex: @regex): nil ) %>
+<%# <% like = Like.find_by(regex: @regex) %> 
+<% if like.nil? %> 
+  <%# <%= button_to "like", likes_path, params: { like: { regex_id: {@regex.id} } }   , method: :post %> 
+  <form action="/likes" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %> ">
+    <input type="hidden" name="like[regex_id]" value="<%= @regex.id%> ">
+    <input type="submit" value="like" class = 'btn btn-primary '>
+  </form>
+<% else %>
+  <%= button_to "unlike", like_path(like), method: :delete, :class => 'btn btn-danger'%>
+  <%# <form action="<%= like_path(like)%> <%# ,  method="post">  %>
+    <%# <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>
+    <%# <input type="hidden" name="_method" value="DELETE">  %>
+    <%# <input type="submit" value="Unlike"> 
+    </form> %>
+<% end %>
+
+<%# </div> %>
+
+</h6>
+</ul>
+
+
+</div>
 
 <ul id="details">
   <li>
@@ -38,6 +73,8 @@
 <% end %>
 </p>
 
+
+
 <p id='display testcase'>
 <h4>Testcases:</h4>
 <table class="table table-striped col-md-12" id="testcases">
@@ -70,4 +107,5 @@
   <%end%>
   <%= link_to 'Back to homepage', regexes_path, :class => 'btn btn-success col-2' %>
 </div>
+
 

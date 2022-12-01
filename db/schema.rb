@@ -13,6 +13,17 @@
 
 ActiveRecord::Schema.define(version: 20221113055352) do
 
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "regex_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "likes", ["regex_id"], name: "index_likes_on_regex_id"
+  add_index "likes", ["user_id", "regex_id"], name: "index_likes_on_user_id_and_regex_id", unique: true
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id"
+
   create_table "regexes", force: :cascade do |t|
     t.string   "title"
     t.string   "expression"

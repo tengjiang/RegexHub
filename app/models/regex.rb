@@ -1,5 +1,6 @@
 class Regex < ActiveRecord::Base
     has_many :testcases
+    has_many :likes
     accepts_nested_attributes_for :testcases, :allow_destroy => true
 
     validates :title, presence: { message: "Regex must have name!" }
@@ -22,7 +23,18 @@ class Regex < ActiveRecord::Base
         else
             res = str =~ reg
             res.nil?? "No match!": "Matches!"
-            # "First match at index #{res}."
+            ## "First match at index #{res}."
+            # res=str.match(reg)
+            # if res
+            #     res=res[0]
+            #     if res == str
+            #         return  "Matches!"
+            #     else
+            #         return  "No match!"
+            #     end
+            # else
+            #     return  "No match!"
+            # end
         end
     end
 
