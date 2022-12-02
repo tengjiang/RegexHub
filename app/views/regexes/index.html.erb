@@ -46,10 +46,10 @@
         </td>
         <td>
           <%= form_tag regexes_path(@text), :method => :get do %>
-          <%= label :text, idx+1 ,"textbox #{(idx+1)}", :class => 'col-form-label hidden' %>
-          <%= text_field :text, idx+1 , :placeholder => 'Type something!',:value => @regex_input[(idx+1).to_s],:class => 'form-control',:class =>'col-6'%>
-          <%= submit_tag "Check it!",:id => "Check #{(idx+1)}",  :class => 'btn btn-success' %>
-          <%= @validity[(idx+1).to_s] %>
+          <%= label :text, regex["id"] ,"textbox #{regex["id"]}", :class => 'col-form-label hidden' %>
+          <%= text_field :text, regex["id"] , :placeholder => 'Type something!',:value => @regex_input[(regex["id"]).to_s],:class => 'form-control',:class =>'col-6'%>
+          <%= submit_tag "Check it!",:id => "Check #{regex["id"]}",  :class => 'btn btn-success' %>
+          <%= @validity[(regex["id"]).to_s] %>
           <% end %>
         </td>
       </tr>
