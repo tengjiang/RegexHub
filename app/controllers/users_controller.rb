@@ -26,12 +26,7 @@ class UsersController < ApplicationController
     def show
         @user = User.find(params[:id])
         @regexes = Regex.where(:user_id => params[:id])
-        @likes = ActiveRecord::Base.connection.execute("SELECT R.title, R.description, R.created_at, R.expression, R.tag FROM regexes R, likes L WHERE L.regex_id = R.id AND L.user_id = #{params[:id]}")
-        puts 'like here!!!'
-        # puts @likes
-        @likes.each do |like|
-            puts like["title"]
-        end
+        @likes = ActiveRecord::Base.connection.execute("SELECT R.id, R.title, R.description, R.created_at, R.expression, R.tag FROM regexes R, likes L WHERE L.regex_id = R.id AND L.user_id = #{params[:id]}")
     end
 
     private

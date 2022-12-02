@@ -33,16 +33,16 @@
     <% @regexes.each_with_index do |regex,idx| %>
       <tr>
         <td>
-          <%= link_to regex.title, regex_path(regex) %>
+          <%= link_to regex["title"], regex_path(regex["id"]) %>
         </td>
         <td>
-          <%= regex.expression %>
+          <%= regex["expression"] %>
         </td>
         <td>
-          <%= regex.tag %>
+          <%= regex["tag"] %>
         </td>
         <td>
-          <%= regex.description %>
+          <%= regex["description"] %>
         </td>
         <td>
           <%= form_tag regexes_path(@text), :method => :get do %>

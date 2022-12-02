@@ -59,7 +59,7 @@
     <% @likes.each do |like| %>
       <tr>
         <td>
-          <%= link_to like["title"],regex_path(like)  %>
+          <%= link_to like["title"],regex_path(like["id"])  %>
         </td>
         <td>
           <%= like["expression"]%>
