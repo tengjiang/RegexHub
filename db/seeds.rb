@@ -27,8 +27,8 @@ testcases = [{:regex_id => 1, :match => 'true', :content => '23:59'},
 			 {:regex_id => 5, :match => 'false', :content => 'asda'},
 			 {:regex_id => 6, :match => 'true', :content => '123-456-7890'},
 			 {:regex_id => 6, :match => 'true', :content => '(123) 456-7890'},
-			 {:regex_id => 6, :match => 'true', :content => '12345'},
-			 {:regex_id => 6, :match => 'true', :content => '12345-1234'}
+			 {:regex_id => 7, :match => 'true', :content => '12345'},
+			 {:regex_id => 7, :match => 'true', :content => '12345-1234'}
 			]
 		
 users = [{:username => 'admin', :password => 'admin' }]
