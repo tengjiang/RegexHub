@@ -78,8 +78,12 @@ class Regex < ActiveRecord::Base
       tags = tags.flatten
       all_regexes = ActiveRecord::Base.connection.execute("SELECT * FROM regexes")
       ret = []
-      all.each do |regex|
+      all_regexes.each do |regex|
         current_tag = regex["tag"].split(",").map(&:strip).reject(&:empty?)
+        #puts current_tag
+        #puts '----'
+        #puts tags
+        #puts ' '
         if !(current_tag & tags).empty? # if they have intersection
             ret.push(regex)
         end

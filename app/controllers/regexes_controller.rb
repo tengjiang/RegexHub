@@ -59,6 +59,11 @@ class RegexesController < ApplicationController
       #   ordering = {:uploaded_time => :asc}
       # end
 
+      if params[:commit] == 'Reset'
+        session[:tags] = nil
+        @tags_to_show = @all_tags
+      end
+
       #@regexes = Regex.with_tags(@tags_to_show).order(ordering)
       @regexes = Regex.with_tags(@tags_to_show)
 
@@ -76,7 +81,7 @@ class RegexesController < ApplicationController
         @validity[k] = Regex.check_integrity(@regex.expression,@regex_input[k])
       end
     end
-    puts params
+    # puts params
 
     end
 
@@ -176,6 +181,39 @@ class RegexesController < ApplicationController
             flash[:notice] = "Regex '#{@regex.title}' deleted."
         end
         redirect_to regexes_path
+    end
+
+    def edit
+        # edit is only responsible for rendering the view. Update should be dealing with database but not edit.
+        id = params[:id] # retrieve regex ID from URI route
+        @regex = Regex.find(id) # look up regex by unique ID
+        render :action => 'edit'
+    end
+
+    def update
+        # edit is only responsible for rendering the view. Update should be dealing with database but not edit.
+        puts params
+        id = params[:id] # retrieve regex ID from URI route
+        @regex = Regex.find(id) # look up regex by unique ID
+        @regex.update("description":params[:regex][:description])
+
+        tags = params[:regex][:tag].split(",").map(&:strip).reject(&:empty?)
+        params[:regex][:tag] = tags.uniq.join(", ")
+        if params[:regex][:tag].empty?
+            # puts "empty!!!!!!"
+            params[:regex][:tag] = 'other'
+            # puts regex_params
+        end
+        @regex.update("tag":params[:regex][:tag])
+        flash[:notice] = "Regex '#{@regex.title}' successfully updated."
+
+        if ( !session[:tags].nil? & !params[:regex][:tag].nil? & !session[:tags].nil?)
+            if !((tags - session[:tags]).empty?) and !params[:regex][:tag].empty? # if not included
+                session[:tags] = (session[:tags]+tags).uniq
+            end
+        end
+
+        redirect_to regex_path(@regex)
     end
 
     private

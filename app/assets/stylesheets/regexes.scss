@@ -5,3 +5,11 @@
 .hidden{
   display: none;
 }
+
+.button_with_thumb_up {
+  background-image: image_url('thumbup.png');
+}
+
+.button_with_thumb_down {
+  background-image: image_url('thumbdown.png');
+}

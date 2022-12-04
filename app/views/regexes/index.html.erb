@@ -5,7 +5,7 @@
 <h5>Try to log in with the username <b>"admin"</b> and password <b>"admin"</b> or register with your own username on the top right!</h5>
 <h5>After logged in, click on the <b>user center</b> up right to see and delete the regexes you uploaded.</h5>
 <h5>Try <b>matching</b> the regex for yourself and make sure to log in before clicking the <b>"Add new regular expression"</b> button!</h5>
-<h5>We are only supporting regular expressions for Ruby for iter-2.</h5></p>
+<h5>We are only supporting regular expressions for Ruby.</h5></p>
 
 
 <%= form_tag regexes_path, method: :get, enforce_utf8: false, id: 'tags_form' do %>
@@ -17,6 +17,7 @@
       </div>
     <% end %>
     <%= submit_tag 'Refresh', id: 'tags_submit', class: 'btn btn-primary' %>
+    <%= submit_tag 'Reset', id: 'tags_refresh', class: 'btn btn-success' %>
  <% end %>
 
 <table class="table table-striped col-md-12" id="regexes">

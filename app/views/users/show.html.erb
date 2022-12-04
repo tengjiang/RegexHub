@@ -11,6 +11,7 @@
       <th>Tag</th>
       <th>Description</th>
       <th>Uploaded time</th>
+      <th>Edit</th>
       <th>Delete</th>
     </tr>
   </thead>
@@ -31,6 +32,9 @@
         </td>
         <td>
         <%= regex.created_at %>
+        </td>
+        <td>
+        <%=link_to 'Edit', edit_regex_path(regex), :class => 'btn btn-primary' %>
         </td>
         <td>
         <%=link_to 'Delete', regex_path(regex), 'data-method' => 'delete', :class => 'btn btn-danger' %>
