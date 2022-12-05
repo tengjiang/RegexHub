@@ -12,7 +12,7 @@ regex = [{:title => 'Time in 24-hour format', :expression => '^([01]?[0-9]|2[0-3
       	 {:title => 'Negative Integer', :expression => '^-\d+$', :description => 'Negative integers.', :tag => 'number', :user_id => 1},
       	 {:title => 'Integer', :expression => '^-?\d+$', :description => 'Should match all integers.', :tag => 'number', :user_id => 1},
 		{:title => 'US Phone Number', :expression => '\A(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}\z', :description => 'US phone number in any format.', :tag => 'US, phone number', :user_id => 1},
-		{:title => 'US Postcode', :expression => '^\d{5}(-\d{4})?$', :description => 'US  postcode.', :tag => 'postcode, US', :user_id => 1}
+		{:title => 'US Postcode', :expression => '^\d{5}(-\d{4})?$', :description => 'US  zipcode.', :tag => 'zipcode, US', :user_id => 1}
 		]
 
 testcases = [{:regex_id => 1, :match => 'true', :content => '23:59'},
