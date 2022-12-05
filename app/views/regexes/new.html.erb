@@ -1,8 +1,8 @@
-<h2>Create New regex</h2>
+<h2>Create New Regex</h2>
 Here is the place for you to create a new regular expression - with rules!
 <ul id="Create new hints">
   <li>
-  Name and expression are required field. Description and Tag are optional but recommended.
+  Name and expression are required field, and cannot be changed after created. Description and Tag are optional but recommended.
   </li>
   <li>
     For now, please do not wrap your regex around //.
@@ -28,7 +28,7 @@ Here is the place for you to create a new regular expression - with rules!
   <%= f.text_field :expression, :class => 'form-control' %>
   <%= f.label :description, 'Description (Optional)', :class => 'col-form-label' %>
   <%= f.text_field :description, :class => 'form-control' %>
-  <%= f.label :tag, 'Tag (Optional)', :class => 'col-form-label' %>
+  <%= f.label :tag, 'Tags (Optional, use comma to separate multiple tags)', :class => 'col-form-label' %>
   <%= f.text_field :tag, :class => 'form-control' %>
   <br/>
 

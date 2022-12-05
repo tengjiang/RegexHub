@@ -48,7 +48,10 @@ class Regex < ActiveRecord::Base
     # end
 
     def self.all_tags
-      all_tags = self.select(:tag).map(&:tag).uniq.reject(&:empty?)
+      # all_tags = self.select(:tag).map(&:tag).uniq.reject(&:empty?)
+      # puts 'here tags'
+      # puts self.select(:tag).map(&:tag).map { |tag| tag.split(',').map(&:strip) }
+      all_tags = self.select(:tag).map(&:tag).map { |tag| tag.split(',').map(&:strip)}.flatten.uniq.reject(&:empty?)
     end
 
     # def self.with_tags(tag)
@@ -60,7 +63,32 @@ class Regex < ActiveRecord::Base
     # end
 
     def self.with_tags(tag)
-      return self.where(tag: tag.reject(&:empty?))
+=begin
+      # return self.where(tag: tag.reject(&:empty?))
+      tags = tag.map {|i| i.split(",").map(&:strip)}
+      # tags = tags.flatten.join("|")
+      tags = tags.flatten.join("%' OR tag LIKE '%")
+      puts "tag here!!!"
+      puts tag
+      return ActiveRecord::Base.connection.execute("SELECT * FROM regexes WHERE tag like '%" + tags + "%'")
+      # return self.where("tag ~ ?",tags)
+      #return self.where('name like ?', tag)
+=end
+      tags = tag.map {|i| i.split(",").map(&:strip).reject(&:empty?)}
+      tags = tags.flatten
+      all_regexes = ActiveRecord::Base.connection.execute("SELECT * FROM regexes")
+      ret = []
+      all_regexes.each do |regex|
+        current_tag = regex["tag"].split(",").map(&:strip).reject(&:empty?)
+        #puts current_tag
+        #puts '----'
+        #puts tags
+        #puts ' '
+        if !(current_tag & tags).empty? # if they have intersection
+            ret.push(regex)
+        end
+      end
+      ret 
     end
 
 end

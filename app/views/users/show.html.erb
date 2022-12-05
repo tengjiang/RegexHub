@@ -11,6 +11,7 @@
       <th>Tag</th>
       <th>Description</th>
       <th>Uploaded time</th>
+      <th>Edit</th>
       <th>Delete</th>
     </tr>
   </thead>
@@ -33,6 +34,9 @@
         <%= regex.created_at %>
         </td>
         <td>
+        <%=link_to 'Edit', edit_regex_path(regex), :class => 'btn btn-primary' %>
+        </td>
+        <td>
         <%=link_to 'Delete', regex_path(regex), 'data-method' => 'delete', :class => 'btn btn-danger' %>
         </td>
       </tr>
@@ -40,5 +44,42 @@
   </tbody>
 </table>
 <%= link_to 'Add new regular expression', new_regex_path, :class => 'btn btn-success' %>
+
+</p>
+
+<p id='display likes'>
+<h4>These are the regexes that you have liked. </h4>
+<table class="table table-striped col-md-12" id="likes">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Expression</th>
+      <th>Tag</th>
+      <th>Description</th>
+      <th>Uploaded time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @likes.each do |like| %>
+      <tr>
+        <td>
+          <%= link_to like["title"],regex_path(like["id"])  %>
+        </td>
+        <td>
+          <%= like["expression"]%>
+        </td>
+        <td>
+          <%= like["tag"] %>
+        </td>
+        <td>
+          <%= like["description"] %>
+        </td>
+        <td>
+        <%= like["created_at"] %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 </p>

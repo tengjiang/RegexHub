@@ -10,7 +10,7 @@ class LikesController < ApplicationController
             end
             redirect_to @like.regex
         else
-            flash[:notice] = "only users can do this!"
+            flash[:notice] = "Log in to like/unlike!"
             redirect_to login_path
         end
         
