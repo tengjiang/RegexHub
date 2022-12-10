@@ -116,3 +116,15 @@ Scenario: Login and update my regex with empty tag
     And I fill in "Tags" with ""
     And I press "Save Changes"
     Then I should see "Regex 'Username' successfully updated."
+
+Scenario: Login and like a regex and then unlike
+    When I go to the Log In page
+    And I fill in "Username" with "admin"
+    And I fill in "Password" with "admin"
+    And I press "Log in"
+    Then I should see "User center for admin"
+    And I follow "User center for admin"
+    Then I should see "These are the regexes that you have uploaded."
+    And I go to the details page for "Username"
+    And I press "like"
+    And I press "unlike"

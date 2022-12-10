@@ -89,4 +89,9 @@ Scenario: Return to homepage
     When I go to the details page for "Time in 24-hour format"
     And I follow "Back to homepage"
     Then I should be on the homepage
+
+Scenario: Try to like a regex without logging in
+    When I go to the details page for "Time in 24-hour format"
+    And I press "like"
+    Then I should see "Log in to like/unlike!"
     
