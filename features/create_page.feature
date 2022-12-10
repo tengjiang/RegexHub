@@ -35,6 +35,8 @@ Background: All the regexes and testcases exist
     And I fill in "Password" with "admin"
     And I press "Log in"
     Then I should see "User center for admin"
+    And I press "Reset"
+    And I press "Refresh"
 
 Scenario: Try to add a new test case and delete it
     And I go to the Add new regular expression page

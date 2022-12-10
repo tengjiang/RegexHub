@@ -86,3 +86,33 @@ Scenario: Login and view my regex
     Then I should see "User center for admin"
     And I follow "User center for admin"
     Then I should see "These are the regexes that you have uploaded."
+
+Scenario: Login and update my regex with non-empty tag
+    When I go to the Log In page
+    And I fill in "Username" with "admin"
+    And I fill in "Password" with "admin"
+    And I press "Log in"
+    Then I should see "User center for admin"
+    And I follow "User center for admin"
+    Then I should see "These are the regexes that you have uploaded."
+    And I go to the details page for "Username"
+    And I follow "Edit"
+    And I fill in "Description" with "test"
+    And I fill in "Tags" with "test"
+    And I press "Save Changes"
+    Then I should see "Regex 'Username' successfully updated."
+
+Scenario: Login and update my regex with empty tag
+    When I go to the Log In page
+    And I fill in "Username" with "admin"
+    And I fill in "Password" with "admin"
+    And I press "Log in"
+    Then I should see "User center for admin"
+    And I follow "User center for admin"
+    Then I should see "These are the regexes that you have uploaded."
+    And I go to the details page for "Username"
+    And I follow "Edit"
+    And I fill in "Description" with "test"
+    And I fill in "Tags" with ""
+    And I press "Save Changes"
+    Then I should see "Regex 'Username' successfully updated."
