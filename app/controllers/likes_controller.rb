@@ -5,9 +5,10 @@ class LikesController < ApplicationController
         @like = (current_user ? current_user.likes.new(like_params):nil)
         # @like = Like.new(like_params)
         if @like
-            if !@like.save
-                flash[:notice] = @like.errors.full_messages.to_sentence
-            end
+            #if !@like.save
+            #    flash[:notice] = @like.errors.full_messages.to_sentence
+            #end
+            @like.save
             redirect_to @like.regex
         else
             flash[:notice] = "Log in to like/unlike!"
