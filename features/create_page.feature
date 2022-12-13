@@ -35,6 +35,8 @@ Background: All the regexes and testcases exist
     And I fill in "Password" with "admin"
     And I press "Log in"
     Then I should see "User center for admin"
+    And I press "Reset"
+    And I press "Refresh"
 
 Scenario: Try to add a new test case and delete it
     And I go to the Add new regular expression page
@@ -91,7 +93,7 @@ Scenario: Add a new regex with wrong testcase result
     And I fill in "testcase 1" with "qwadasd"
     And I choose "testcase 1 true"
     And I press "Save Changes"
-    Then I should see "Regex No.1 does not behave as expected."
+    Then I should see "Testcase No.1 does not behave as expected."
 
 Scenario: Add a new regex and save
     When I go to the Add new regular expression page
