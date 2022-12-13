@@ -33,12 +33,27 @@ RSpec.describe RegexesController, type: :controller do
       get :index, {:text => {'1': 'test1'}, :commit => 'Refresh', :tags=>{'test1':1}}
       #expect(response).to redirect_to("/regexes?tags%5Bother%5D=1&text%5B1%5D=test1")
     end
+    it "successful reset" do
+      allow(Regex).to receive(:create)
+      Regex.create! regex_valid_attributes
+      get :index, {:text => {'1': 'test1'}, :tags=>{'test1':1}, :commit => "Reset"}
+      #expect(response).to redirect_to("/regexes?tags%5Bother%5D=1&text%5B1%5D=test1")
+    end
   end
 
   context '#new' do
-    it 'get' do
+    it 'instantiate a new regex' do
       get :new, {}
       assigns(:regex).should be_a_new(Regex)
+    end
+  end
+
+  context '#edit' do
+    it 'edit successfully' do
+      allow(Regex).to receive(:create)
+      Regex.create! regex_valid_attributes
+      get :edit, {:id => 1}
+      expect(response).to render_template("edit")
     end
   end
 
@@ -115,6 +130,31 @@ RSpec.describe RegexesController, type: :controller do
       expect(response).to redirect_to @regexes_path
     end
   end
+
+  context '#update' do
+    it 'successful updated with both tag and description' do
+      allow(Regex).to receive(:create)
+      Regex.create! regex_valid_attributes
+      get :update, {:regex=>{:description=>"c", :tag=>"other"},:id => 1}
+      expect(response).to redirect_to("/regexes/1")
+    end
+    it 'successful updated with no tag' do
+      allow(Regex).to receive(:create)
+      Regex.create! regex_valid_attributes
+      get :update, {:regex=>{:description=>"c",:tag =>''},:id => 1}
+      expect(response).to redirect_to("/regexes/1")
+    end
+    it 'add new tag to session' do
+      session[:tags] = ["test1"]
+      allow(Regex).to receive(:create)
+      Regex.create! regex_valid_attributes
+      get :update, {:regex=>{:description=>"c", :tag=>"new test"},:id => 1}
+      expect(session[:tags]).to eq ["test1", "new test"]
+      
+    end
+
+  end
+
 
   # delete some examples
   context '#destroy' do
