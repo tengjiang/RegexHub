@@ -17,16 +17,18 @@ Project for Engineering SaaS. A platform to share and get regular expressions in
 ```localhost:3000/```
 
 # Features we added for iter-2
-* We have added a brand new user system for our application. Feel free to try it out with username “admin” and password “admin”, or create your own user with a different username.
-  * Common authorization logics, like log-in and register, are fully supported. Usernames cannot duplicate, and passwords must match to register or log in.
-  * Now, only users who have logged in can upload regexes. If users try to create a new regular expression without logging in, they will be prompted to the user log-in page.
-  * Now users can click into their user center to see all the regexes they have uploaded. 
-  * Now users can only delete the regexes they uploaded but not others uploaded, both in their user center and the regular expression homepage.
-* We improved the tagging system with checkboxes to select and show regexes with according tags.
-  * Users can check the checkboxes of categories they want to view on the homepage and refresh to see regexes with those categories.
-  * If a new regular expression is uploaded with an empty tag, it will be marked “other”.
-  * If a new regular expression is uploaded with a different tag than any other tags our regexes have, it will automatically create a new tag and mark its according checkbox selected when going back to the homepage.
+* We have added one more set of features: Like and Unlike to complete our user journey. This is done by adding a new relation “like” in our database schema, with foreign key regex_id referring to a particular regex, and user_id referring to the user that liked this regex. 
+  * Going into a page of one regex, users can see how many likes this regex has and they can click on the Like button to give this regex a “like”.
+  * If users have liked this regex before, they can “unlike” it by clicking on the Unlike button.
+  * Users can see all the regexes they liked in the user center.
+* We improved the tagging system by allowing multiple tags for one regex:
+  * Tags are separated by commas, and spaces at the start and end of each tag will be stripped.
+  * Users can check the checkboxes of categories they want to view on the homepage and refresh to see regexes with at least one of those categories.
+  * If a new regular expression is uploaded with no tags, it will be marked “other”.
+  * If a new regular expression is uploaded with one or more different tags than any other tags our regexes have, it will automatically create the according tags and mark their according checkbox selected when going back to the homepage.
+* We add support for editing regex after users have uploaded their regexes.
+  * The Edit button is now available in the user center and the regex page, along with the delete button.
+  * Specifically, users can reset the regex’s description and tags. After successfully editions, users will be redirected to the home page and see the tags have already been updated.
 * Other minor functions:
-  * We enforce test cases not to duplicate when uploading test cases on each page of regex.
-  * We add support to check for matching results on the front page.
-
+  * We added more buttons to edit/delete regexes.
+  * We added the Refresh button to reset all the tags we have selected.
