@@ -16,7 +16,7 @@ Project for Engineering SaaS. A platform to share and get regular expressions in
 * Visit the app’s home page:
 ```localhost:3000/```
 
-# Features we added for iter-2
+# Features we added for iter-launch
 * We have added one more set of features: Like and Unlike to complete our user journey. This is done by adding a new relation “like” in our database schema, with foreign key regex_id referring to a particular regex, and user_id referring to the user that liked this regex. 
   * Going into a page of one regex, users can see how many likes this regex has and they can click on the Like button to give this regex a “like”.
   * If users have liked this regex before, they can “unlike” it by clicking on the Unlike button.
