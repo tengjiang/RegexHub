@@ -1,5 +1,5 @@
 # RegexHub
-Project for Engineering SaaS. A platform to share and get regular expressions in Ruby.
+A platform to share and get regular expressions in Ruby.
 
 # Instructions
 * Run bundle install to make sure all gems are properly installed. We are using Ruby with version 2.6.6, and Rails with version 4.2.10:
